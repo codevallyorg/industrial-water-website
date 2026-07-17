@@ -49,8 +49,10 @@
   --radius-xl: 20px;
   --radius-pill: 999px;
 
-  /* layout */
-  --container-site: 1240px;
+  /* layout — widened from the prototype's 1240 (client-approved change):
+     1368 outer = 1280 content column at 44px gutters, so wide screens read
+     less empty while a 1440 laptop keeps ~73px edge breathing room. */
+  --container-site: 1368px;
 
   /* The design's own breakpoints — nav wraps at 1120, mobile nav takes over at 900.
      These are NOT Tailwind's defaults; use them for anything nav-related. */
@@ -128,12 +130,12 @@
   }
 }
 
-/* The prototype's own container: max-width 1240px, 24px gutters. */
+/* Site container: max-width 1368px (widened from prototype 1240), clamp(20px,4vw,44px) gutters. */
 @utility container-site {
   width: 100%;
   max-width: var(--container-site);
   margin-inline: auto;
-  padding-inline: 24px;
+  padding-inline: clamp(20px, 4vw, 44px);
 }
 
 /* Page-enter animation from the prototype (`animation:fadeUp .5s ease both`). */
