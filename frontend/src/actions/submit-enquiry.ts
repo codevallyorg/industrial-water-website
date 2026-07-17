@@ -17,6 +17,7 @@ import 'server-only';
 export type EnquiryState = {
   ok: boolean;
   errors: Partial<Record<'name' | 'email' | 'message' | 'form', string>>;
+  values?: Partial<Record<'name' | 'email' | 'phone' | 'industry' | 'message', string>>;
 };
 
 const STRAPI_URL = process.env.STRAPI_URL ?? 'http://127.0.0.1:1337';
@@ -53,21 +54,22 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
   const message = (formData.get('message') as string)?.trim() ?? '';
 
   // Validation — strings verbatim from the prototype.
+  const values = { name, email, phone, industry, message };
   const errors: EnquiryState['errors'] = {};
   if (!name) errors.name = 'Please enter your name.';
   if (!email) errors.email = 'Please enter your work email.';
   else if (!EMAIL_RE.test(email)) errors.email = "That email doesn't look right — please check it.";
   if (!message) errors.message = 'Tell us briefly what you need help with.';
-  if (Object.keys(errors).length) return { ok: false, errors };
+  if (Object.keys(errors).length) return { ok: false, errors, values };
 
   if (rateLimited(email.toLowerCase())) {
-    return { ok: false, errors: { form: 'Too many submissions — please try again in a minute.' } };
+    return { ok: false, errors: { form: 'Too many submissions — please try again in a minute.' }, values };
   }
 
   const token = process.env.STRAPI_ENQUIRY_TOKEN;
   if (!token) {
     console.error('STRAPI_ENQUIRY_TOKEN is not set — enquiry cannot be saved.');
-    return { ok: false, errors: { form: 'Something went wrong on our end. Please email us directly.' } };
+    return { ok: false, errors: { form: 'Something went wrong on our end. Please email us directly.' }, values };
   }
 
   // 1) Persist first.
@@ -79,11 +81,11 @@ export async function submitEnquiry(_prev: EnquiryState, formData: FormData): Pr
     });
     if (!res.ok) {
       console.error(`Strapi enquiry create failed: ${res.status} ${await res.text().catch(() => '')}`);
-      return { ok: false, errors: { form: 'Something went wrong on our end. Please email us directly.' } };
+      return { ok: false, errors: { form: 'Something went wrong on our end. Please email us directly.' }, values };
     }
   } catch (err) {
     console.error('Strapi enquiry create threw:', err);
-    return { ok: false, errors: { form: 'Something went wrong on our end. Please email us directly.' } };
+    return { ok: false, errors: { form: 'Something went wrong on our end. Please email us directly.' }, values };
   }
 
   // 2) Notify — best effort. A failed email must not fail the submission.

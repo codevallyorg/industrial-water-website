@@ -46,6 +46,7 @@ export function ContactForm({ page }: { page: ContactPage }) {
   }
 
   const options = page.industryOptions ?? [];
+  const v = state.values ?? {};
 
   return (
     <form action={formAction} noValidate className="rounded-xl border border-line bg-fill-2 p-6 sm:p-8">
@@ -58,9 +59,11 @@ export function ContactForm({ page }: { page: ContactPage }) {
       <div className="grid gap-5 sm:grid-cols-2">
         <Field id="fw-name" label="Full name *" error={state.errors.name}>
           <input
+            key={`name-${v.name ?? ''}`}
             id="fw-name"
             name="name"
             type="text"
+            defaultValue={v.name}
             placeholder="Jane Citizen"
             aria-invalid={Boolean(state.errors.name)}
             aria-describedby={state.errors.name ? 'fw-name-err' : undefined}
@@ -69,9 +72,11 @@ export function ContactForm({ page }: { page: ContactPage }) {
         </Field>
         <Field id="fw-email" label="Work email *" error={state.errors.email}>
           <input
+            key={`email-${v.email ?? ''}`}
             id="fw-email"
             name="email"
             type="email"
+            defaultValue={v.email}
             placeholder="jane@company.com.au"
             aria-invalid={Boolean(state.errors.email)}
             aria-describedby={state.errors.email ? 'fw-email-err' : undefined}
@@ -82,13 +87,22 @@ export function ContactForm({ page }: { page: ContactPage }) {
 
       <div className="mt-5 grid gap-5 sm:grid-cols-2">
         <Field id="fw-phone" label="Phone">
-          <input id="fw-phone" name="phone" type="tel" placeholder="04xx xxx xxx" className={fieldCls} />
+          <input
+            key={`phone-${v.phone ?? ''}`}
+            id="fw-phone"
+            name="phone"
+            type="tel"
+            defaultValue={v.phone}
+            placeholder="04xx xxx xxx"
+            className={fieldCls}
+          />
         </Field>
         <Field id="fw-industry" label="Industry">
           <CustomSelect
             name="industry"
             placeholder="Select your industry…"
             options={options}
+            defaultValue={v.industry}
           />
         </Field>
       </div>
@@ -96,9 +110,11 @@ export function ContactForm({ page }: { page: ContactPage }) {
       <div className="mt-5">
         <Field id="fw-message" label="How can we help? *" error={state.errors.message}>
           <textarea
+            key={`message-${v.message ?? ''}`}
             id="fw-message"
             name="message"
             rows={5}
+            defaultValue={v.message}
             placeholder="Tell us about your site, your water source, and the challenge you're facing…"
             aria-invalid={Boolean(state.errors.message)}
             aria-describedby={state.errors.message ? 'fw-message-err' : undefined}
