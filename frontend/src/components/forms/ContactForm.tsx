@@ -3,6 +3,7 @@
 import { useActionState } from 'react';
 import { submitEnquiry, type EnquiryState } from '@/actions/submit-enquiry';
 import { CheckLarge } from '@/components/icons';
+import { CustomSelect } from '@/components/ui/CustomSelect';
 import type { ContactPage } from '@/lib/strapi/types';
 
 /**
@@ -84,14 +85,11 @@ export function ContactForm({ page }: { page: ContactPage }) {
           <input id="fw-phone" name="phone" type="tel" placeholder="04xx xxx xxx" className={fieldCls} />
         </Field>
         <Field id="fw-industry" label="Industry">
-          <select id="fw-industry" name="industry" defaultValue="" className={fieldCls}>
-            <option value="">Select your industry…</option>
-            {options.map((o) => (
-              <option key={o} value={o}>
-                {o}
-              </option>
-            ))}
-          </select>
+          <CustomSelect
+            name="industry"
+            placeholder="Select your industry…"
+            options={options}
+          />
         </Field>
       </div>
 
