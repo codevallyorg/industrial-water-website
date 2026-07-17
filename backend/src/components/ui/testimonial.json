@@ -1,0 +1,10 @@
+{
+  "collectionName": "components_ui_testimonials",
+  "info": { "displayName": "Testimonial", "icon": "quote" },
+  "options": {},
+  "attributes": {
+    "quote": { "type": "text", "required": true },
+    "attribution": { "type": "string", "required": true },
+    "note": { "type": "string", "description": "Parenthetical qualifier, e.g. (representative client feedback)" }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "kind": "collectionType",
+  "collectionName": "industries",
+  "info": {
+    "singularName": "industry",
+    "pluralName": "industries",
+    "displayName": "Industry",
+    "description": "The 5 industry pages. Slug drives /industries/<slug>."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "slug": { "type": "uid", "targetField": "title", "required": true },
+    "order": { "type": "integer", "default": 0 },
+    "cardDescription": { "type": "string", "required": true, "description": "Short label on the Home industry tile, e.g. \"Process & environmental water\"." },
+    "h1": { "type": "string", "required": true },
+    "intro": { "type": "text", "required": true },
+    "media": { "type": "component", "repeatable": false, "component": "shared.media-frame" },
+    "challenges": { "type": "component", "repeatable": true, "component": "ui.icon-item", "description": "\"Challenges we solve\" - 3 items in the design." },
+    "relatedServices": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::service.service",
+      "description": "ONE-WAY on purpose. Not the inverse of service.relatedIndustries - the design's cross-links are asymmetric. Order is curated."
+    },
+    "stat": { "type": "component", "repeatable": false, "component": "ui.stat", "description": "The single highlighted sector stat." },
+    "seo": { "type": "component", "repeatable": false, "component": "shared.seo" }
+  }
+}

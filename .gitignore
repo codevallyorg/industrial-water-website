@@ -1,0 +1,38 @@
+node_modules/
+
+# Secrets — never commit real env files (.env.example templates are kept)
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# AI/agent tooling — kept local, not part of the shipped repo
+CLAUDE.md
+.claude/
+
+# Next.js
+frontend/.next/
+frontend/out/
+frontend/next-env.d.ts
+
+# Strapi
+backend/.tmp/
+backend/.cache/
+backend/build/
+backend/dist/
+backend/.strapi/
+backend/types/generated/
+backend/public/uploads/*
+!backend/public/uploads/.gitkeep
+
+# pm2
+.pm2/
+logs/
+*.log
+
+.DS_Store
+.idea/
+.vscode/
+
+# seed image download cache
+backend/scripts/.cache/

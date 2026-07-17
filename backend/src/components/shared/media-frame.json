@@ -1,0 +1,10 @@
+{
+  "collectionName": "components_shared_media_frames",
+  "info": { "displayName": "Media Frame", "icon": "picture", "description": "Image plus the small caption label shown over it in the design." },
+  "options": {},
+  "attributes": {
+    "image": { "type": "media", "multiple": false, "allowedTypes": ["images"] },
+    "label": { "type": "string", "description": "Overlay caption, e.g. FORBES WATER - FIELD OPERATIONS" },
+    "alt": { "type": "string", "description": "Accessible alt text. Leave empty if purely decorative." }
+  }
+}

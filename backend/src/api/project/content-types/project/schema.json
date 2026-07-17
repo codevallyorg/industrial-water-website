@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "projects",
+  "info": {
+    "singularName": "project",
+    "pluralName": "projects",
+    "displayName": "Project",
+    "description": "Case studies. The design has no detail page, so there is deliberately no slug."
+  },
+  "options": { "draftAndPublish": true },
+  "pluginOptions": {},
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "sector": {
+      "type": "enumeration",
+      "enum": ["Mining", "Government", "Industrial", "Hospitality", "Agriculture"],
+      "required": true,
+      "description": "Badge shown on the card. Free-standing label - not a relation to Industry."
+    },
+    "description": { "type": "text", "required": true },
+    "media": { "type": "component", "repeatable": false, "component": "shared.media-frame" },
+    "metrics": { "type": "component", "repeatable": true, "component": "ui.stat", "max": 2, "description": "Exactly 2 in the design." },
+    "featured": { "type": "boolean", "default": false, "description": "Surfaces in the Home \"Recent Work\" strip (3 shown)." },
+    "order": { "type": "integer", "default": 0 }
+  }
+}

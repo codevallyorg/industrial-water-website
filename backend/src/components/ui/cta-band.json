@@ -1,0 +1,10 @@
+{
+  "collectionName": "components_ui_cta_bands",
+  "info": { "displayName": "CTA Band", "icon": "bell", "description": "Shared band shown on every page except Contact." },
+  "options": {},
+  "attributes": {
+    "heading": { "type": "string", "required": true },
+    "body": { "type": "text" },
+    "button": { "type": "component", "repeatable": false, "component": "shared.link" }
+  }
+}

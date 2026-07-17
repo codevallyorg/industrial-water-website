@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_nav_nav_items",
+  "info": { "displayName": "Nav Item", "icon": "bulletList" },
+  "options": {},
+  "attributes": {
+    "label": { "type": "string", "required": true },
+    "href": { "type": "string", "required": true },
+    "megaMenu": {
+      "type": "enumeration",
+      "enum": ["none", "services", "industries"],
+      "default": "none",
+      "description": "Populates the dropdown from that collection. Items are not listed by hand."
+    }
+  }
+}

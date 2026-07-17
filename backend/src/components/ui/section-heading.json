@@ -1,0 +1,11 @@
+{
+  "collectionName": "components_ui_section_headings",
+  "info": { "displayName": "Section Heading", "icon": "typhon", "description": "Eyebrow + H2, with an optional right-aligned link." },
+  "options": {},
+  "attributes": {
+    "eyebrow": { "type": "string" },
+    "heading": { "type": "string", "required": true },
+    "linkLabel": { "type": "string" },
+    "linkHref": { "type": "string" }
+  }
+}

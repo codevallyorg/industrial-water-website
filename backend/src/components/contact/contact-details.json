@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_contact_contact_details",
+  "info": { "displayName": "Contact Details", "icon": "phone" },
+  "options": {},
+  "attributes": {
+    "phone": { "type": "string" },
+    "phoneNote": { "type": "string", "description": "e.g. (placeholder) - shown inline until the client confirms" },
+    "email": { "type": "string" },
+    "emailNote": { "type": "string" },
+    "coverage": { "type": "string", "description": "e.g. Servicing all Australian states & territories" },
+    "abn": { "type": "string" },
+    "abnNote": { "type": "string" }
+  }
+}

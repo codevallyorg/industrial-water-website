@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_nav_footer_columns",
+  "info": { "displayName": "Footer Column", "icon": "layer" },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "source": {
+      "type": "enumeration",
+      "enum": ["manual", "services", "industries"],
+      "default": "manual",
+      "description": "services/industries auto-populate from the collection; use manual to list links below."
+    },
+    "links": { "type": "component", "repeatable": true, "component": "shared.link" }
+  }
+}

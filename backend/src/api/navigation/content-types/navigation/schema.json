@@ -1,0 +1,11 @@
+{
+  "kind": "singleType",
+  "collectionName": "navigations",
+  "info": { "singularName": "navigation", "pluralName": "navigations", "displayName": "Navigation", "description": "Header and footer navigation. Service/industry dropdowns populate from their collections - don't list them by hand." },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "mainItems": { "type": "component", "repeatable": true, "component": "nav.nav-item" },
+    "ctaButton": { "type": "component", "repeatable": false, "component": "shared.link" },
+    "footerColumns": { "type": "component", "repeatable": true, "component": "nav.footer-column" }
+  }
+}

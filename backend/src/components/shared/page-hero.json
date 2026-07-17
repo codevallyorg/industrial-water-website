@@ -1,0 +1,11 @@
+{
+  "collectionName": "components_shared_page_heroes",
+  "info": { "displayName": "Page Hero", "icon": "layout", "description": "Standard inner-page hero: eyebrow, H1, intro." },
+  "options": {},
+  "attributes": {
+    "eyebrow": { "type": "string" },
+    "heading": { "type": "string", "required": true },
+    "intro": { "type": "text" },
+    "note": { "type": "text", "description": "Optional inline caveat, e.g. the representative-case-studies disclaimer." }
+  }
+}

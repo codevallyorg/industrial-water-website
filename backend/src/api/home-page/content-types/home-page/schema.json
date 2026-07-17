@@ -1,0 +1,26 @@
+{
+  "kind": "singleType",
+  "collectionName": "home_pages",
+  "info": { "singularName": "home-page", "pluralName": "home-pages", "displayName": "Home Page" },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "seo": { "type": "component", "repeatable": false, "component": "shared.seo", "required": true },
+    "heroEyebrow": { "type": "string" },
+    "heroHeading": { "type": "string", "required": true },
+    "heroBody": { "type": "text" },
+    "heroPrimaryCta": { "type": "component", "repeatable": false, "component": "shared.link" },
+    "heroSecondaryCta": { "type": "component", "repeatable": false, "component": "shared.link" },
+    "heroStats": { "type": "component", "repeatable": true, "component": "ui.stat", "description": "3 in the design: 18+, 340+, 100%." },
+    "heroMedia": { "type": "component", "repeatable": false, "component": "shared.media-frame" },
+    "expertiseHeading": { "type": "component", "repeatable": false, "component": "ui.section-heading" },
+    "whyHeading": { "type": "component", "repeatable": false, "component": "ui.section-heading" },
+    "whyMedia": { "type": "component", "repeatable": false, "component": "shared.media-frame" },
+    "whyItems": { "type": "component", "repeatable": true, "component": "ui.numbered-item" },
+    "industriesHeading": { "type": "component", "repeatable": false, "component": "ui.section-heading" },
+    "processHeading": { "type": "component", "repeatable": false, "component": "ui.section-heading" },
+    "processItems": { "type": "component", "repeatable": true, "component": "ui.numbered-item" },
+    "testimonial": { "type": "component", "repeatable": false, "component": "ui.testimonial" },
+    "testimonialStats": { "type": "component", "repeatable": true, "component": "ui.stat" },
+    "projectsHeading": { "type": "component", "repeatable": false, "component": "ui.section-heading" }
+  }
+}

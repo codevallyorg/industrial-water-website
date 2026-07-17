@@ -1,0 +1,17 @@
+{
+  "kind": "singleType",
+  "collectionName": "globals",
+  "info": { "singularName": "global", "pluralName": "globals", "displayName": "Global", "description": "Site-wide identity, contact details, socials, footer and the shared CTA band." },
+  "options": { "draftAndPublish": false },
+  "attributes": {
+    "siteName": { "type": "string", "required": true, "default": "Forbes Water" },
+    "logo": { "type": "media", "multiple": false, "allowedTypes": ["images"], "description": "Optional. The design uses an inline SVG droplet + wordmark by default." },
+    "defaultSeo": { "type": "component", "repeatable": false, "component": "shared.seo", "required": true, "description": "Fallback for any page whose SEO fields are blank." },
+    "contact": { "type": "component", "repeatable": false, "component": "contact.contact-details" },
+    "socials": { "type": "component", "repeatable": true, "component": "shared.link" },
+    "footerTagline": { "type": "text" },
+    "copyright": { "type": "string" },
+    "legalLine": { "type": "string", "description": "e.g. ABN ... (placeholder) - Servicing Australia-wide" },
+    "ctaBand": { "type": "component", "repeatable": false, "component": "ui.cta-band", "description": "Shown on every page except Contact." }
+  }
+}

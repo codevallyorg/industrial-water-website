@@ -1,0 +1,16 @@
+{
+  "kind": "singleType",
+  "collectionName": "about_pages",
+  "info": { "singularName": "about-page", "pluralName": "about-pages", "displayName": "About Page" },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "seo": { "type": "component", "repeatable": false, "component": "shared.seo", "required": true },
+    "hero": { "type": "component", "repeatable": false, "component": "shared.page-hero", "required": true },
+    "storyHeading": { "type": "string" },
+    "storyBody": { "type": "richtext", "description": "3 paragraphs in the design." },
+    "storyMedia": { "type": "component", "repeatable": false, "component": "shared.media-frame" },
+    "valuesHeading": { "type": "component", "repeatable": false, "component": "ui.section-heading" },
+    "valuesItems": { "type": "component", "repeatable": true, "component": "ui.icon-item" },
+    "teamHeading": { "type": "component", "repeatable": false, "component": "ui.section-heading" }
+  }
+}

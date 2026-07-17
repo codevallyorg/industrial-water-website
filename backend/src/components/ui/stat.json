@@ -1,0 +1,9 @@
+{
+  "collectionName": "components_ui_stats",
+  "info": { "displayName": "Stat", "icon": "chartBubble", "description": "{value,label}. Used by: hero stats, testimonial stats, sustainability impact, project metrics." },
+  "options": {},
+  "attributes": {
+    "value": { "type": "string", "required": true, "description": "As displayed, e.g. 18+, 1.2GL, -41%, 24h" },
+    "label": { "type": "string", "required": true }
+  }
+}

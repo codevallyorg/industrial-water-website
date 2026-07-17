@@ -1,0 +1,18 @@
+{
+  "kind": "singleType",
+  "collectionName": "contact_pages",
+  "info": { "singularName": "contact-page", "pluralName": "contact-pages", "displayName": "Contact Page" },
+  "options": { "draftAndPublish": true },
+  "attributes": {
+    "seo": { "type": "component", "repeatable": false, "component": "shared.seo", "required": true },
+    "hero": { "type": "component", "repeatable": false, "component": "shared.page-hero", "required": true },
+    "directContactHeading": { "type": "string" },
+    "nextStepsHeading": { "type": "string" },
+    "nextStepsItems": { "type": "component", "repeatable": true, "component": "ui.numbered-item" },
+    "formNote": { "type": "string", "description": "Small print under the submit button." },
+    "successHeading": { "type": "string" },
+    "successBody": { "type": "text" },
+    "successButtonLabel": { "type": "string" },
+    "industryOptions": { "type": "json", "description": "Select options. Mirrors the industry list plus \"Other\"." }
+  }
+}

@@ -1,0 +1,24 @@
+# Dev-only Postgres for Strapi. Production runs Postgres + pm2 directly on the VPS.
+# Host port defaults to 5433 so it never collides with a native Postgres on 5432.
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: forbes-water-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME:-forbes}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-forbes_dev_password}
+      POSTGRES_DB: ${DATABASE_NAME:-forbes_water}
+    ports:
+      - "${DATABASE_PORT:-5433}:5432"
+    volumes:
+      - forbes-water-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USERNAME:-forbes} -d ${DATABASE_NAME:-forbes_water}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  forbes-water-pgdata:

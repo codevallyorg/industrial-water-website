@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+  html { background:#0a1a24; }
+  body { margin:0; background:#0a1a24; color:#e8f2f4; font-family:'IBM Plex Sans',sans-serif; }
+  * { box-sizing:border-box; }
+  a { color:#34d3e0; text-decoration:none; }
+  a:hover { color:#7ce8f0; }
+  ::selection { background:rgba(52,211,224,.35); }
+  input, select, textarea { font-family:'IBM Plex Sans',sans-serif; }
+  @keyframes fadeUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:none; } }
+  @keyframes ripple { 0% { transform:scale(.9); opacity:.5; } 100% { transform:scale(1.6); opacity:0; } }
+  @media (max-width:1120px) { #fw-nav { order:3; flex:1 1 100%; justify-content:center; } }
+  @media (max-width:900px) { #fw-nav { display:none !important; } #fw-burger { display:inline-flex !important; } }
+  @media (min-width:901px) { #fw-mobile-nav { display:none !important; } }
+</style>
+</helmet>
+
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#0a1a24"></rect>
+    <path d="M50 22 C50 22 30 46 30 62 a20 20 0 0 0 40 0 C70 46 50 22 50 22 Z" fill="#34d3e0"></path>
+  </svg>
+</template>
+
+<!-- ============ HEADER ============ -->
+<header style="position:sticky;top:0;z-index:60;background:rgba(10,26,36,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.07);">
+  <div style="max-width:1240px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px clamp(20px,4vw,44px);flex-wrap:wrap;">
+    <a href="#/" style="display:flex;align-items:center;gap:11px;color:#e8f2f4;">
+      <svg width="26" height="30" viewBox="0 0 24 30"><path d="M12 1 C12 1 3 12 3 19 a9 9 0 0 0 18 0 C21 12 12 1 12 1 Z" fill="#34d3e0"></path><ellipse cx="9" cy="16" rx="2.4" ry="3.4" fill="#0a1a24" opacity=".28"></ellipse></svg>
+      <span style="font:700 20px 'Space Grotesk';letter-spacing:-.01em;">Forbes<span style="color:#34d3e0;">Water</span></span>
+    </a>
+    <nav id="fw-nav" style="display:flex;align-items:center;gap:6px;font:500 14px 'IBM Plex Sans';flex-wrap:wrap;">
+      <a href="#/" style="color:#a9c2c8;padding:9px 12px;border-radius:8px;" style-hover="color:#e8f2f4;background:rgba(255,255,255,.05);">Home</a>
+      <a href="#/about" style="color:#a9c2c8;padding:9px 12px;border-radius:8px;" style-hover="color:#e8f2f4;background:rgba(255,255,255,.05);">About</a>
+      <div onMouseEnter="{{ openSvcMenu }}" onMouseLeave="{{ closeMenus }}" style="position:relative;">
+        <a href="#/services" style="color:#a9c2c8;padding:9px 12px;border-radius:8px;display:inline-flex;align-items:center;gap:6px;" style-hover="color:#e8f2f4;background:rgba(255,255,255,.05);">Services <svg width="9" height="6" viewBox="0 0 10 6"><path d="M1 1 L5 5 L9 1" fill="none" stroke="#7f9aa1" stroke-width="1.6"></path></svg></a>
+        <sc-if value="{{ svcMenuOpen }}">
+          <div style="position:absolute;top:100%;left:0;padding-top:10px;z-index:70;">
+            <div style="width:300px;background:#0e2430;border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:10px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);animation:fadeUp .18s ease both;">
+              <a href="#/services" onClick="{{ closeMenus }}" style="display:block;padding:10px 12px;border-radius:8px;font:600 13px 'Space Grotesk';color:#34d3e0;" style-hover="background:rgba(52,211,224,.08);">All Services →</a>
+              <div style="height:1px;background:rgba(255,255,255,.07);margin:6px 4px;"></div>
+              <sc-for list="{{ services }}" as="s" hint-placeholder-count="8">
+                <a href="{{ s.href }}" onClick="{{ closeMenus }}" style="display:block;padding:9px 12px;border-radius:8px;color:#c8dade;font:400 13.5px 'IBM Plex Sans';" style-hover="background:rgba(255,255,255,.05);color:#e8f2f4;">{{ s.t }}</a>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+      <div onMouseEnter="{{ openIndMenu }}" onMouseLeave="{{ closeMenus }}" style="position:relative;">
+        <a href="#/industries" style="color:#a9c2c8;padding:9px 12px;border-radius:8px;display:inline-flex;align-items:center;gap:6px;" style-hover="color:#e8f2f4;background:rgba(255,255,255,.05);">Industries <svg width="9" height="6" viewBox="0 0 10 6"><path d="M1 1 L5 5 L9 1" fill="none" stroke="#7f9aa1" stroke-width="1.6"></path></svg></a>
+        <sc-if value="{{ indMenuOpen }}">
+          <div style="position:absolute;top:100%;left:0;padding-top:10px;z-index:70;">
+            <div style="width:280px;background:#0e2430;border:1px solid rgba(255,255,255,.10);border-radius:14px;padding:10px;box-shadow:0 30px 60px -20px rgba(0,0,0,.6);animation:fadeUp .18s ease both;">
+              <a href="#/industries" onClick="{{ closeMenus }}" style="display:block;padding:10px 12px;border-radius:8px;font:600 13px 'Space Grotesk';color:#34d3e0;" style-hover="background:rgba(52,211,224,.08);">All Industries →</a>
+              <div style="height:1px;background:rgba(255,255,255,.07);margin:6px 4px;"></div>
+              <sc-for list="{{ industries }}" as="i" hint-placeholder-count="5">
+                <a href="{{ i.href }}" onClick="{{ closeMenus }}" style="display:block;padding:9px 12px;border-radius:8px;color:#c8dade;font:400 13.5px 'IBM Plex Sans';" style-hover="background:rgba(255,255,255,.05);color:#e8f2f4;">{{ i.t }}</a>
+              </sc-for>
+            </div>
+          </div>
+        </sc-if>
+      </div>
+      <a href="#/sustainability" style="color:#a9c2c8;padding:9px 12px;border-radius:8px;" style-hover="color:#e8f2f4;background:rgba(255,255,255,.05);">Sustainability</a>
+      <a href="#/projects" style="color:#a9c2c8;padding:9px 12px;border-radius:8px;" style-hover="color:#e8f2f4;background:rgba(255,255,255,.05);">Projects</a>
+    </nav>
+    <a href="#/contact" style="font:600 13px 'Space Grotesk';color:#062028;background:#34d3e0;padding:11px 20px;border-radius:999px;white-space:nowrap;" style-hover="background:#5ee0ea;color:#062028;">Request Consultation</a>
+    <button id="fw-burger" onClick="{{ toggleMobile }}" aria-label="Open menu" style="display:none;align-items:center;justify-content:center;background:none;border:1px solid rgba(255,255,255,.22);border-radius:10px;padding:9px 11px;cursor:pointer;">
+      <svg width="18" height="14" viewBox="0 0 18 14"><path d="M1 1 h16 M1 7 h16 M1 13 h16" stroke="#e8f2f4" stroke-width="1.8" stroke-linecap="round"></path></svg>
+    </button>
+  </div>
+  <sc-if value="{{ mobileOpen }}">
+    <nav id="fw-mobile-nav" style="display:flex;flex-direction:column;gap:2px;padding:10px 20px 20px;border-top:1px solid rgba(255,255,255,.07);max-height:72vh;overflow:auto;background:#0a1a24;">
+      <a href="#/" onClick="{{ closeMobile }}" style="color:#e8f2f4;font:600 15px 'Space Grotesk';padding:12px 8px;border-radius:8px;" style-hover="background:rgba(255,255,255,.05);color:#e8f2f4;">Home</a>
+      <a href="#/about" onClick="{{ closeMobile }}" style="color:#e8f2f4;font:600 15px 'Space Grotesk';padding:12px 8px;border-radius:8px;" style-hover="background:rgba(255,255,255,.05);color:#e8f2f4;">About</a>
+      <div style="font:600 11px 'Space Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#34d3e0;padding:14px 8px 6px;">Services</div>
+      <a href="#/services" onClick="{{ closeMobile }}" style="color:#e8f2f4;font:500 14px 'IBM Plex Sans';padding:10px 8px 10px 16px;border-radius:8px;" style-hover="background:rgba(255,255,255,.05);color:#e8f2f4;">All Services</a>
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="8">
+        <a href="{{ s.href }}" onClick="{{ closeMobile }}" style="color:#a9c2c8;font:400 14px 'IBM Plex Sans';padding:10px 8px 10px 16px;border-radius:8px;" style-hover="background:rgba(255,255,255,.05);color:#e8f2f4;">{{ s.t }}</a>
+      </sc-for>
+      <div style="font:600 11px 'Space Grotesk';letter-spacing:.12em;text-transform:uppercase;color:#34d3e0;padding:14px 8px 6px;">Industries</div>
+      <a href="#/industries" onClick="{{ closeMobile }}" style="color:#e8f2f4;font:500 14px 'IBM Plex Sans';padding:10px 8px 10px 16px;border-radius:8px;" style-hover="background:rgba(255,255,255,.05);color:#e8f2f4;">All Industries</a>
+      <sc-for list="{{ industries }}" as="i" hint-placeholder-count="5">
+        <a href="{{ i.href }}" onClick="{{ closeMobile }}" style="color:#a9c2c8;font:400 14px 'IBM Plex Sans';padding:10px 8px 10px 16px;border-radius:8px;" style-hover="background:rgba(255,255,255,.05);color:#e8f2f4;">{{ i.t }}</a>
+      </sc-for>
+      <a href="#/sustainability" onClick="{{ closeMobile }}" style="color:#e8f2f4;font:600 15px 'Space Grotesk';padding:12px 8px;border-radius:8px;margin-top:8px;" style-hover="background:rgba(255,255,255,.05);color:#e8f2f4;">Sustainability</a>
+      <a href="#/projects" onClick="{{ closeMobile }}" style="color:#e8f2f4;font:600 15px 'Space Grotesk';padding:12px 8px;border-radius:8px;" style-hover="background:rgba(255,255,255,.05);color:#e8f2f4;">Projects</a>
+      <a href="#/contact" onClick="{{ closeMobile }}" style="color:#062028;background:#34d3e0;font:600 15px 'Space Grotesk';padding:13px 16px;border-radius:12px;margin-top:12px;text-align:center;" style-hover="background:#5ee0ea;color:#062028;">Request Consultation</a>
+    </nav>
+  </sc-if>
+</header>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+<div style="animation:fadeUp .5s ease both;">
+  <section data-screen-label="Home / Hero" style="position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 85% 10%,rgba(52,211,224,.18),transparent 55%),radial-gradient(90% 80% at 15% 100%,rgba(11,122,140,.28),transparent 60%);"></div>
+    <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(20px,4vw,44px) clamp(48px,6vw,72px);display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:48px;align-items:center;">
+      <div>
+        <div style="display:inline-flex;align-items:center;gap:8px;font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;border:1px solid rgba(52,211,224,.35);padding:7px 14px;border-radius:999px;">Independent Water Specialists · Australia</div>
+        <h1 style="font:700 clamp(36px,4.6vw,54px)/1.05 'Space Grotesk';letter-spacing:-.02em;margin:22px 0 20px;">Innovative water solutions for industry, communities &amp; the environment</h1>
+        <p style="font:400 17px/1.65 'IBM Plex Sans';color:#a9c2c8;max-width:46ch;margin:0 0 30px;text-wrap:pretty;">Forbes Water delivers specialist consulting, treatment, monitoring and management that optimise water quality, cut operating costs and keep you ahead of every compliance obligation.</p>
+        <div style="display:flex;gap:14px;flex-wrap:wrap;">
+          <a href="#/contact" style="font:600 15px 'Space Grotesk';color:#062028;background:#34d3e0;padding:15px 26px;border-radius:12px;" style-hover="background:#5ee0ea;color:#062028;">Request a Consultation</a>
+          <a href="#/services" style="font:600 15px 'Space Grotesk';color:#e8f2f4;border:1px solid rgba(255,255,255,.22);padding:15px 26px;border-radius:12px;" style-hover="border-color:rgba(52,211,224,.6);color:#34d3e0;">View Our Services</a>
+        </div>
+        <div style="display:flex;gap:40px;margin-top:44px;flex-wrap:wrap;">
+          <div><div style="font:700 30px 'Space Grotesk';color:#34d3e0;">18+</div><div style="font:400 13px 'IBM Plex Sans';color:#7f9aa1;">Years of experience</div></div>
+          <div><div style="font:700 30px 'Space Grotesk';color:#34d3e0;">340+</div><div style="font:400 13px 'IBM Plex Sans';color:#7f9aa1;">Sites optimised</div></div>
+          <div><div style="font:700 30px 'Space Grotesk';color:#34d3e0;">100%</div><div style="font:400 13px 'IBM Plex Sans';color:#7f9aa1;">Independent advice</div></div>
+        </div>
+      </div>
+      <div style="position:relative;height:420px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.10);background:linear-gradient(160deg,rgba(14,58,69,.78),rgba(10,26,36,.9) 70%),url('https://images.unsplash.com/photo-1559825481-12a05cc00344?auto=format&amp;fit=crop&amp;w=1400&amp;q=60') center/cover;">
+        <div style="position:absolute;inset:0;background:radial-gradient(80% 60% at 30% 20%,rgba(52,211,224,.35),transparent 60%),radial-gradient(70% 70% at 80% 90%,rgba(20,180,200,.25),transparent 60%);"></div>
+        <div style="position:absolute;top:50%;left:50%;width:120px;height:120px;margin:-60px 0 0 -60px;border:1.5px solid rgba(52,211,224,.5);border-radius:50%;animation:ripple 3.2s ease-out infinite;"></div>
+        <div style="position:absolute;top:50%;left:50%;width:120px;height:120px;margin:-60px 0 0 -60px;border:1.5px solid rgba(52,211,224,.35);border-radius:50%;animation:ripple 3.2s ease-out 1.1s infinite;"></div>
+        <svg style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);" width="54" height="66" viewBox="0 0 24 30"><path d="M12 1 C12 1 3 12 3 19 a9 9 0 0 0 18 0 C21 12 12 1 12 1 Z" fill="#34d3e0"></path><ellipse cx="9" cy="16" rx="2.4" ry="3.4" fill="#0a1a24" opacity=".28"></ellipse></svg>
+        <div style="position:absolute;bottom:14px;left:16px;font:500 11px 'IBM Plex Mono',monospace;color:rgba(232,242,244,.55);letter-spacing:.05em;">FORBES WATER · FIELD OPERATIONS</div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Home / Expertise" style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(20px,4vw,44px);">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:26px;">
+      <div>
+        <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">Our Expertise</div>
+        <h2 style="font:700 clamp(26px,3.4vw,36px) 'Space Grotesk';letter-spacing:-.015em;margin:10px 0 0;">Every stage of the water cycle, one accountable team</h2>
+      </div>
+      <a href="#/services" style="font:600 14px 'Space Grotesk';color:#34d3e0;white-space:nowrap;">All services →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="8">
+        <a href="{{ s.href }}" style="display:block;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px 20px;color:#e8f2f4;transition:border-color .2s,transform .2s;" style-hover="border-color:rgba(52,211,224,.5);transform:translateY(-3px);color:#e8f2f4;">
+          <svg width="22" height="26" viewBox="0 0 24 30"><path d="M12 1 C12 1 3 12 3 19 a9 9 0 0 0 18 0 C21 12 12 1 12 1 Z" fill="none" stroke="#34d3e0" stroke-width="1.6"></path></svg>
+          <div style="font:600 16px 'Space Grotesk';margin-top:16px;line-height:1.25;">{{ s.t }}</div>
+          <div style="font:400 13.5px/1.55 'IBM Plex Sans';color:#a9c2c8;margin-top:8px;">{{ s.short }}</div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="Home / Why" style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(20px,4vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:44px;align-items:center;">
+    <div style="position:relative;min-height:340px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.10);background:linear-gradient(200deg,rgba(14,58,69,.6),rgba(10,26,36,.82) 75%),url('https://images.unsplash.com/photo-1581092160562-40aa08e78837?auto=format&amp;fit=crop&amp;w=1200&amp;q=60') center/cover;">
+      <div style="position:absolute;inset:0;background:radial-gradient(70% 60% at 75% 25%,rgba(52,211,224,.22),transparent 60%);"></div>
+      <div style="position:absolute;bottom:14px;left:16px;font:500 11px 'IBM Plex Mono',monospace;color:rgba(232,242,244,.55);letter-spacing:.05em;">ON-SITE WATER QUALITY AUDIT</div>
+    </div>
+    <div>
+      <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">Why Forbes Water</div>
+      <h2 style="font:700 clamp(26px,3.4vw,36px) 'Space Grotesk';letter-spacing:-.015em;margin:10px 0 18px;">Advice that answers to your outcomes — not to equipment sales</h2>
+      <div style="display:flex;flex-direction:column;gap:18px;">
+        <sc-for list="{{ why }}" as="w" hint-placeholder-count="4">
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <span style="flex:0 0 auto;display:inline-grid;place-items:center;width:34px;height:34px;border-radius:10px;background:rgba(52,211,224,.12);border:1px solid rgba(52,211,224,.3);font:700 14px 'Space Grotesk';color:#34d3e0;">{{ w.n }}</span>
+            <div><div style="font:600 16px 'Space Grotesk';">{{ w.t }}</div><div style="font:400 14px/1.6 'IBM Plex Sans';color:#a9c2c8;margin-top:4px;">{{ w.d }}</div></div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Home / Industries" style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(20px,4vw,44px);">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:26px;">
+      <div>
+        <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">Industries We Serve</div>
+        <h2 style="font:700 clamp(26px,3.4vw,36px) 'Space Grotesk';letter-spacing:-.015em;margin:10px 0 0;">Solutions tuned to your sector</h2>
+      </div>
+      <a href="#/industries" style="font:600 14px 'Space Grotesk';color:#34d3e0;white-space:nowrap;">Explore industries →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+      <sc-for list="{{ industries }}" as="i" hint-placeholder-count="5">
+        <a href="{{ i.href }}" style="position:relative;display:block;height:180px;border-radius:16px;overflow:hidden;border:1px solid rgba(255,255,255,.08);background:linear-gradient(180deg,rgba(15,42,52,.55),rgba(10,26,36,.92)),url('{{ i.img }}') center/cover;color:#e8f2f4;transition:border-color .2s,transform .2s;" style-hover="border-color:rgba(52,211,224,.5);transform:translateY(-3px);color:#e8f2f4;">
+          <div style="position:absolute;inset:0;background:radial-gradient(70% 80% at 80% 0%,rgba(52,211,224,.18),transparent 60%);"></div>
+          <div style="position:absolute;left:20px;right:20px;bottom:18px;">
+            <div style="font:700 19px 'Space Grotesk';">{{ i.t }}</div>
+            <div style="font:400 13px 'IBM Plex Sans';color:#a9c2c8;margin-top:4px;">{{ i.d }}</div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="Home / Process" style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(20px,4vw,44px);">
+    <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">How We Work</div>
+    <h2 style="font:700 clamp(26px,3.4vw,36px) 'Space Grotesk';letter-spacing:-.015em;margin:10px 0 26px;">From first sample to sustained performance</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;">
+      <sc-for list="{{ process }}" as="p" hint-placeholder-count="4">
+        <div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px 20px;">
+          <div style="font:700 13px 'IBM Plex Mono',monospace;color:#34d3e0;letter-spacing:.08em;">{{ p.n }}</div>
+          <div style="font:600 18px 'Space Grotesk';margin-top:12px;">{{ p.t }}</div>
+          <div style="font:400 14px/1.6 'IBM Plex Sans';color:#a9c2c8;margin-top:8px;">{{ p.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="Home / Testimonial" style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(20px,4vw,44px);">
+    <div style="background:linear-gradient(160deg,rgba(52,211,224,.08),rgba(255,255,255,.02));border:1px solid rgba(52,211,224,.22);border-radius:20px;padding:clamp(28px,4vw,48px);display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:32px;align-items:center;">
+      <div>
+        <svg width="34" height="26" viewBox="0 0 34 26" style="display:block;margin-bottom:18px;"><path d="M0 26 L8 0 h8 L11 26 Z M18 26 L26 0 h8 L29 26 Z" fill="rgba(52,211,224,.5)"></path></svg>
+        <div style="font:500 clamp(18px,2.2vw,22px)/1.55 'Space Grotesk';letter-spacing:-.01em;text-wrap:pretty;">Forbes Water rebuilt our treatment strategy from the ground up. Water costs fell by a third, and our compliance reporting went from a monthly scramble to a non-event.</div>
+        <div style="margin-top:18px;font:600 14px 'IBM Plex Sans';color:#a9c2c8;">Operations Manager · Regional mining operation <span style="color:#7f9aa1;font-weight:400;">(representative client feedback)</span></div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div style="background:rgba(10,26,36,.55);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;"><div style="font:700 26px 'Space Grotesk';color:#34d3e0;">32%</div><div style="font:400 13px 'IBM Plex Sans';color:#a9c2c8;margin-top:4px;">Average reduction in client water operating costs</div></div>
+        <div style="background:rgba(10,26,36,.55);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;"><div style="font:700 26px 'Space Grotesk';color:#34d3e0;">1.2GL</div><div style="font:400 13px 'IBM Plex Sans';color:#a9c2c8;margin-top:4px;">Water recycled annually across client sites</div></div>
+        <div style="background:rgba(10,26,36,.55);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;"><div style="font:700 26px 'Space Grotesk';color:#34d3e0;">Zero</div><div style="font:400 13px 'IBM Plex Sans';color:#a9c2c8;margin-top:4px;">Compliance breaches across managed programs</div></div>
+        <div style="background:rgba(10,26,36,.55);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;"><div style="font:700 26px 'Space Grotesk';color:#34d3e0;">24h</div><div style="font:400 13px 'IBM Plex Sans';color:#a9c2c8;margin-top:4px;">Response time for urgent water quality events</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Home / Projects preview" style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,64px) clamp(20px,4vw,44px);">
+    <div style="display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:26px;">
+      <div>
+        <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">Recent Work</div>
+        <h2 style="font:700 clamp(26px,3.4vw,36px) 'Space Grotesk';letter-spacing:-.015em;margin:10px 0 0;">Results our clients can measure</h2>
+      </div>
+      <a href="#/projects" style="font:600 14px 'Space Grotesk';color:#34d3e0;white-space:nowrap;">All projects →</a>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
+      <sc-for list="{{ featuredProjects }}" as="pr" hint-placeholder-count="3">
+        <a href="#/projects" style="display:block;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;color:#e8f2f4;transition:border-color .2s,transform .2s;" style-hover="border-color:rgba(52,211,224,.5);transform:translateY(-3px);color:#e8f2f4;">
+          <div style="position:relative;height:130px;background:linear-gradient(180deg,rgba(15,42,52,.45),rgba(10,26,36,.8)),url('{{ pr.img }}') center/cover;">
+            <div style="position:absolute;inset:0;background:radial-gradient(70% 90% at 20% 0%,rgba(52,211,224,.18),transparent 60%);"></div>
+            <div style="position:absolute;top:14px;left:14px;font:600 11px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#062028;background:#34d3e0;padding:5px 10px;border-radius:999px;">{{ pr.sector }}</div>
+          </div>
+          <div style="padding:20px;">
+            <div style="font:600 17px 'Space Grotesk';line-height:1.3;">{{ pr.t }}</div>
+            <div style="font:700 14px 'IBM Plex Mono',monospace;color:#34d3e0;margin-top:10px;">{{ pr.m1 }} <span style="font:400 12px 'IBM Plex Sans';color:#7f9aa1;">{{ pr.m1d }}</span></div>
+          </div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ ABOUT ============ -->
+<sc-if value="{{ isAbout }}">
+<div style="animation:fadeUp .5s ease both;">
+  <section data-screen-label="About / Hero" style="position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(100% 80% at 90% 0%,rgba(52,211,224,.14),transparent 55%);"></div>
+    <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(20px,4vw,44px) clamp(36px,5vw,56px);">
+      <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">About Forbes Water</div>
+      <h1 style="font:700 clamp(34px,4.4vw,50px)/1.08 'Space Grotesk';letter-spacing:-.02em;margin:16px 0 18px;max-width:22ch;">Independent water specialists, accountable only to your outcomes</h1>
+      <p style="font:400 17px/1.7 'IBM Plex Sans';color:#a9c2c8;max-width:64ch;margin:0;text-wrap:pretty;">For more than 18 years, Forbes Water has helped Australian industry, agriculture and government get more from every drop — combining scientific rigour, field-proven engineering and genuinely independent advice.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="About / Story" style="max-width:1240px;margin:0 auto;padding:clamp(32px,4vw,56px) clamp(20px,4vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:44px;align-items:center;">
+    <div>
+      <h2 style="font:700 clamp(24px,3vw,32px) 'Space Grotesk';letter-spacing:-.015em;margin:0 0 16px;">Built in the field, not the boardroom</h2>
+      <p style="font:400 15.5px/1.75 'IBM Plex Sans';color:#a9c2c8;margin:0 0 14px;">Forbes Water began with a simple observation: too many organisations were sold water treatment they didn't need, while the problems that actually cost them money went undiagnosed. We set out to be different — specialists who start with the water itself, not a product catalogue.</p>
+      <p style="font:400 15.5px/1.75 'IBM Plex Sans';color:#a9c2c8;margin:0 0 14px;">Today our team supports more than 340 sites nationwide, from remote mine dewatering operations to municipal drinking water schemes. Because we're independent, every recommendation is judged on one measure only: whether it delivers for you.</p>
+      <p style="font:400 15.5px/1.75 'IBM Plex Sans';color:#a9c2c8;margin:0;">Our people are chemists, process engineers and environmental scientists who spend as much time on site as they do at a desk — which is exactly how we like it.</p>
+    </div>
+    <div style="position:relative;min-height:360px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.10);background:linear-gradient(160deg,rgba(14,58,69,.6),rgba(10,26,36,.82) 75%),url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&amp;fit=crop&amp;w=1200&amp;q=60') center/cover;">
+      <div style="position:absolute;inset:0;background:radial-gradient(70% 60% at 30% 25%,rgba(52,211,224,.22),transparent 60%);"></div>
+      <div style="position:absolute;bottom:14px;left:16px;font:500 11px 'IBM Plex Mono',monospace;color:rgba(232,242,244,.55);letter-spacing:.05em;">THE FORBES WATER TEAM ON SITE</div>
+    </div>
+  </section>
+
+  <section data-screen-label="About / Values" style="max-width:1240px;margin:0 auto;padding:clamp(32px,4vw,56px) clamp(20px,4vw,44px);">
+    <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">What We Stand For</div>
+    <h2 style="font:700 clamp(26px,3.4vw,36px) 'Space Grotesk';letter-spacing:-.015em;margin:10px 0 26px;">Four principles behind every engagement</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;">
+      <sc-for list="{{ values }}" as="v" hint-placeholder-count="4">
+        <div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px 20px;">
+          <svg width="22" height="26" viewBox="0 0 24 30"><path d="M12 1 C12 1 3 12 3 19 a9 9 0 0 0 18 0 C21 12 12 1 12 1 Z" fill="none" stroke="#34d3e0" stroke-width="1.6"></path></svg>
+          <div style="font:600 17px 'Space Grotesk';margin-top:14px;">{{ v.t }}</div>
+          <div style="font:400 14px/1.6 'IBM Plex Sans';color:#a9c2c8;margin-top:8px;">{{ v.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="About / Team" style="max-width:1240px;margin:0 auto;padding:clamp(32px,4vw,56px) clamp(20px,4vw,44px);">
+    <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">Leadership</div>
+    <h2 style="font:700 clamp(26px,3.4vw,36px) 'Space Grotesk';letter-spacing:-.015em;margin:10px 0 26px;">The people accountable for your water</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+      <sc-for list="{{ team }}" as="m" hint-placeholder-count="3">
+        <div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;">
+          <div style="position:relative;height:200px;background:linear-gradient(160deg,#0f2a34,#0a1a24);">
+            <div style="position:absolute;inset:0;background:radial-gradient(60% 70% at 50% 30%,rgba(52,211,224,.28),transparent 65%);"></div>
+            <div style="position:absolute;bottom:12px;left:14px;font:500 10.5px 'IBM Plex Mono',monospace;color:rgba(232,242,244,.5);">[ portrait photo ]</div>
+          </div>
+          <div style="padding:20px;">
+            <div style="font:600 17px 'Space Grotesk';">{{ m.name }}</div>
+            <div style="font:600 12.5px 'IBM Plex Sans';color:#34d3e0;margin-top:3px;">{{ m.role }}</div>
+            <div style="font:400 13.5px/1.6 'IBM Plex Sans';color:#a9c2c8;margin-top:8px;">{{ m.bio }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ SERVICES OVERVIEW ============ -->
+<sc-if value="{{ isServices }}">
+<div style="animation:fadeUp .5s ease both;">
+  <section data-screen-label="Services / Hero" style="position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(100% 80% at 90% 0%,rgba(52,211,224,.14),transparent 55%);"></div>
+    <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(20px,4vw,44px) clamp(36px,5vw,56px);">
+      <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">Our Services</div>
+      <h1 style="font:700 clamp(34px,4.4vw,50px)/1.08 'Space Grotesk';letter-spacing:-.02em;margin:16px 0 18px;max-width:24ch;">Water consulting, treatment &amp; management services</h1>
+      <p style="font:400 17px/1.7 'IBM Plex Sans';color:#a9c2c8;max-width:62ch;margin:0;text-wrap:pretty;">Eight specialist capabilities, one accountable partner. Engage us for a single audit or an end-to-end program — every service is delivered by the same senior team, on the same independent terms.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Services / Grid" style="max-width:1240px;margin:0 auto;padding:clamp(24px,3vw,40px) clamp(20px,4vw,44px);">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;">
+      <sc-for list="{{ services }}" as="s" hint-placeholder-count="8">
+        <a href="{{ s.href }}" style="display:flex;flex-direction:column;gap:12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:26px 22px;color:#e8f2f4;transition:border-color .2s,transform .2s;" style-hover="border-color:rgba(52,211,224,.5);transform:translateY(-3px);color:#e8f2f4;">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <svg width="24" height="28" viewBox="0 0 24 30"><path d="M12 1 C12 1 3 12 3 19 a9 9 0 0 0 18 0 C21 12 12 1 12 1 Z" fill="none" stroke="#34d3e0" stroke-width="1.6"></path></svg>
+            <span style="font:600 13px 'Space Grotesk';color:#34d3e0;">Explore →</span>
+          </div>
+          <div style="font:600 19px 'Space Grotesk';line-height:1.25;">{{ s.t }}</div>
+          <div style="font:400 14px/1.65 'IBM Plex Sans';color:#a9c2c8;">{{ s.blurb }}</div>
+        </a>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="Services / Engagement" style="max-width:1240px;margin:0 auto;padding:clamp(32px,4vw,56px) clamp(20px,4vw,44px);">
+    <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">Ways to Engage</div>
+    <h2 style="font:700 clamp(26px,3.4vw,36px) 'Space Grotesk';letter-spacing:-.015em;margin:10px 0 26px;">Flexible engagement, from one-off audits to full management</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+      <sc-for list="{{ engagement }}" as="e" hint-placeholder-count="3">
+        <div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:26px 22px;">
+          <div style="font:700 13px 'IBM Plex Mono',monospace;color:#34d3e0;letter-spacing:.08em;">{{ e.n }}</div>
+          <div style="font:600 19px 'Space Grotesk';margin-top:12px;">{{ e.t }}</div>
+          <div style="font:400 14px/1.65 'IBM Plex Sans';color:#a9c2c8;margin-top:8px;">{{ e.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ SERVICE DETAIL ============ -->
+<sc-if value="{{ isServiceDetail }}">
+<div style="animation:fadeUp .5s ease both;">
+  <section data-screen-label="Service detail / Hero" style="position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(100% 80% at 90% 0%,rgba(52,211,224,.14),transparent 55%);"></div>
+    <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(48px,6vw,76px) clamp(20px,4vw,44px) clamp(32px,4vw,48px);">
+      <div style="font:500 13px 'IBM Plex Sans';color:#7f9aa1;"><a href="#/services" style="color:#7f9aa1;" style-hover="color:#34d3e0;">Services</a> <span style="margin:0 6px;">/</span> <span style="color:#a9c2c8;">{{ svc.t }}</span></div>
+      <h1 style="font:700 clamp(32px,4.2vw,48px)/1.08 'Space Grotesk';letter-spacing:-.02em;margin:16px 0 16px;max-width:24ch;">{{ svc.h1 }}</h1>
+      <p style="font:400 17px/1.7 'IBM Plex Sans';color:#a9c2c8;max-width:62ch;margin:0 0 26px;text-wrap:pretty;">{{ svc.tagline }}</p>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;">
+        <a href="#/contact" style="font:600 15px 'Space Grotesk';color:#062028;background:#34d3e0;padding:14px 24px;border-radius:12px;" style-hover="background:#5ee0ea;color:#062028;">Discuss this service</a>
+        <a href="#/projects" style="font:600 15px 'Space Grotesk';color:#e8f2f4;border:1px solid rgba(255,255,255,.22);padding:14px 24px;border-radius:12px;" style-hover="border-color:rgba(52,211,224,.6);color:#34d3e0;">See related projects</a>
+      </div>
+    </div>
+  </section>
+
+  <section data-screen-label="Service detail / Overview" style="max-width:1240px;margin:0 auto;padding:clamp(24px,3vw,44px) clamp(20px,4vw,44px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:40px;align-items:center;">
+    <div>
+      <h2 style="font:700 clamp(22px,2.8vw,30px) 'Space Grotesk';letter-spacing:-.015em;margin:0 0 14px;">Overview</h2>
+      <p style="font:400 15.5px/1.75 'IBM Plex Sans';color:#a9c2c8;margin:0;">{{ svc.overview }}</p>
+    </div>
+    <div style="position:relative;min-height:280px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.10);background:linear-gradient(160deg,rgba(14,58,69,.62),rgba(10,26,36,.85) 75%),url('{{ svc.img }}') center/cover;">
+      <div style="position:absolute;inset:0;background:radial-gradient(70% 60% at 70% 25%,rgba(52,211,224,.22),transparent 60%);"></div>
+      <div style="position:absolute;bottom:14px;left:16px;font:500 11px 'IBM Plex Mono',monospace;color:rgba(232,242,244,.55);letter-spacing:.05em;text-transform:uppercase;">{{ svc.imgLabel }}</div>
+    </div>
+  </section>
+
+  <section data-screen-label="Service detail / Outcomes" style="max-width:1240px;margin:0 auto;padding:clamp(24px,3vw,44px) clamp(20px,4vw,44px);">
+    <h2 style="font:700 clamp(22px,2.8vw,30px) 'Space Grotesk';letter-spacing:-.015em;margin:0 0 22px;">What you get</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;">
+      <sc-for list="{{ svc.outcomes }}" as="o" hint-placeholder-count="4">
+        <div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:22px 20px;">
+          <svg width="20" height="20" viewBox="0 0 20 20"><circle cx="10" cy="10" r="9" fill="none" stroke="#34d3e0" stroke-width="1.5"></circle><path d="M6 10.5 L9 13.5 L14 7.5" fill="none" stroke="#34d3e0" stroke-width="1.8"></path></svg>
+          <div style="font:600 16px 'Space Grotesk';margin-top:12px;">{{ o.t }}</div>
+          <div style="font:400 13.5px/1.6 'IBM Plex Sans';color:#a9c2c8;margin-top:6px;">{{ o.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="Service detail / Process" style="max-width:1240px;margin:0 auto;padding:clamp(24px,3vw,44px) clamp(20px,4vw,44px);">
+    <h2 style="font:700 clamp(22px,2.8vw,30px) 'Space Grotesk';letter-spacing:-.015em;margin:0 0 22px;">How it works</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;">
+      <sc-for list="{{ svc.steps }}" as="st" hint-placeholder-count="4">
+        <div style="border-left:2px solid rgba(52,211,224,.45);padding:4px 0 4px 18px;">
+          <div style="font:700 13px 'IBM Plex Mono',monospace;color:#34d3e0;letter-spacing:.08em;">{{ st.n }}</div>
+          <div style="font:600 17px 'Space Grotesk';margin-top:8px;">{{ st.t }}</div>
+          <div style="font:400 14px/1.6 'IBM Plex Sans';color:#a9c2c8;margin-top:6px;">{{ st.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="Service detail / Related" style="max-width:1240px;margin:0 auto;padding:clamp(24px,3vw,44px) clamp(20px,4vw,44px);">
+    <div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;">
+      <div style="font:600 15px 'Space Grotesk';color:#a9c2c8;">Common in these industries:</div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;">
+        <sc-for list="{{ svc.inds }}" as="ri" hint-placeholder-count="3">
+          <a href="{{ ri.href }}" style="font:600 13px 'Space Grotesk';color:#34d3e0;border:1px solid rgba(52,211,224,.35);padding:8px 16px;border-radius:999px;" style-hover="background:rgba(52,211,224,.1);color:#34d3e0;">{{ ri.t }}</a>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ INDUSTRIES OVERVIEW ============ -->
+<sc-if value="{{ isIndustries }}">
+<div style="animation:fadeUp .5s ease both;">
+  <section data-screen-label="Industries / Hero" style="position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(100% 80% at 90% 0%,rgba(52,211,224,.14),transparent 55%);"></div>
+    <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(20px,4vw,44px) clamp(36px,5vw,56px);">
+      <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">Industries We Serve</div>
+      <h1 style="font:700 clamp(34px,4.4vw,50px)/1.08 'Space Grotesk';letter-spacing:-.02em;margin:16px 0 18px;max-width:24ch;">Sector-specific water expertise</h1>
+      <p style="font:400 17px/1.7 'IBM Plex Sans';color:#a9c2c8;max-width:62ch;margin:0;text-wrap:pretty;">Water challenges look very different on a mine site, a farm, and a hotel rooftop. We bring deep experience in each sector's regulations, risks and operating realities — so solutions fit your world, not a template.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Industries / Grid" style="max-width:1240px;margin:0 auto;padding:clamp(24px,3vw,40px) clamp(20px,4vw,44px);display:flex;flex-direction:column;gap:16px;">
+    <sc-for list="{{ industries }}" as="i" hint-placeholder-count="5">
+      <a href="{{ i.href }}" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:0;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:18px;overflow:hidden;color:#e8f2f4;transition:border-color .2s,transform .2s;" style-hover="border-color:rgba(52,211,224,.5);transform:translateY(-2px);color:#e8f2f4;">
+        <div style="position:relative;min-height:180px;background:linear-gradient(160deg,rgba(15,42,52,.5),rgba(10,26,36,.8)),url('{{ i.img }}') center/cover;">
+          <div style="position:absolute;inset:0;background:radial-gradient(70% 80% at 80% 0%,rgba(52,211,224,.18),transparent 60%);"></div>
+          <div style="position:absolute;bottom:12px;left:16px;font:500 10.5px 'IBM Plex Mono',monospace;color:rgba(232,242,244,.5);text-transform:uppercase;">{{ i.imgLabel }}</div>
+        </div>
+        <div style="padding:26px;display:flex;flex-direction:column;gap:10px;justify-content:center;">
+          <div style="font:700 22px 'Space Grotesk';">{{ i.t }}</div>
+          <div style="font:400 14.5px/1.65 'IBM Plex Sans';color:#a9c2c8;">{{ i.intro }}</div>
+          <div style="font:600 14px 'Space Grotesk';color:#34d3e0;margin-top:4px;">Explore {{ i.t }} →</div>
+        </div>
+      </a>
+    </sc-for>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ INDUSTRY DETAIL ============ -->
+<sc-if value="{{ isIndustryDetail }}">
+<div style="animation:fadeUp .5s ease both;">
+  <section data-screen-label="Industry detail / Hero" style="position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(100% 80% at 90% 0%,rgba(52,211,224,.14),transparent 55%);"></div>
+    <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(48px,6vw,76px) clamp(20px,4vw,44px) clamp(32px,4vw,48px);">
+      <div style="font:500 13px 'IBM Plex Sans';color:#7f9aa1;"><a href="#/industries" style="color:#7f9aa1;" style-hover="color:#34d3e0;">Industries</a> <span style="margin:0 6px;">/</span> <span style="color:#a9c2c8;">{{ ind.t }}</span></div>
+      <h1 style="font:700 clamp(32px,4.2vw,48px)/1.08 'Space Grotesk';letter-spacing:-.02em;margin:16px 0 16px;max-width:22ch;">{{ ind.h1 }}</h1>
+      <p style="font:400 17px/1.7 'IBM Plex Sans';color:#a9c2c8;max-width:62ch;margin:0 0 26px;text-wrap:pretty;">{{ ind.intro }}</p>
+      <a href="#/contact" style="display:inline-block;font:600 15px 'Space Grotesk';color:#062028;background:#34d3e0;padding:14px 24px;border-radius:12px;" style-hover="background:#5ee0ea;color:#062028;">Talk to a sector specialist</a>
+    </div>
+  </section>
+
+  <section data-screen-label="Industry detail / Challenges" style="max-width:1240px;margin:0 auto;padding:clamp(24px,3vw,44px) clamp(20px,4vw,44px);">
+    <h2 style="font:700 clamp(22px,2.8vw,30px) 'Space Grotesk';letter-spacing:-.015em;margin:0 0 22px;">Challenges we solve</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+      <sc-for list="{{ ind.challenges }}" as="c" hint-placeholder-count="3">
+        <div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px 20px;">
+          <div style="font:600 17px 'Space Grotesk';">{{ c.t }}</div>
+          <div style="font:400 14px/1.65 'IBM Plex Sans';color:#a9c2c8;margin-top:8px;">{{ c.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="Industry detail / Services" style="max-width:1240px;margin:0 auto;padding:clamp(24px,3vw,44px) clamp(20px,4vw,44px);">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;align-items:center;">
+      <div>
+        <h2 style="font:700 clamp(22px,2.8vw,30px) 'Space Grotesk';letter-spacing:-.015em;margin:0 0 16px;">How we help</h2>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <sc-for list="{{ ind.svcs }}" as="rs" hint-placeholder-count="4">
+            <a href="{{ rs.href }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:16px 18px;color:#e8f2f4;" style-hover="border-color:rgba(52,211,224,.5);color:#e8f2f4;">
+              <span style="font:600 15px 'Space Grotesk';">{{ rs.t }}</span>
+              <span style="font:600 14px 'Space Grotesk';color:#34d3e0;">→</span>
+            </a>
+          </sc-for>
+        </div>
+      </div>
+      <div style="background:linear-gradient(160deg,rgba(52,211,224,.1),rgba(255,255,255,.02));border:1px solid rgba(52,211,224,.25);border-radius:20px;padding:32px;">
+        <div style="font:700 clamp(34px,4vw,44px) 'Space Grotesk';color:#34d3e0;">{{ ind.stat }}</div>
+        <div style="font:400 15px/1.65 'IBM Plex Sans';color:#a9c2c8;margin-top:10px;">{{ ind.statD }}</div>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ SUSTAINABILITY ============ -->
+<sc-if value="{{ isSustainability }}">
+<div style="animation:fadeUp .5s ease both;">
+  <section data-screen-label="Sustainability / Hero" style="position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(100% 80% at 90% 0%,rgba(52,211,224,.14),transparent 55%);"></div>
+    <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(20px,4vw,44px) clamp(36px,5vw,56px);">
+      <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">Sustainability</div>
+      <h1 style="font:700 clamp(34px,4.4vw,50px)/1.08 'Space Grotesk';letter-spacing:-.02em;margin:16px 0 18px;max-width:22ch;">Sustainable water management that pays for itself</h1>
+      <p style="font:400 17px/1.7 'IBM Plex Sans';color:#a9c2c8;max-width:64ch;margin:0;text-wrap:pretty;">Sustainability isn't a report we write at the end — it's the engineering principle we start with. Using less, recycling more and protecting receiving environments almost always lowers operating cost too. We design for both.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Sustainability / Pillars" style="max-width:1240px;margin:0 auto;padding:clamp(32px,4vw,56px) clamp(20px,4vw,44px);">
+    <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">Our Approach</div>
+    <h2 style="font:700 clamp(26px,3.4vw,36px) 'Space Grotesk';letter-spacing:-.015em;margin:10px 0 26px;">Four pillars of water stewardship</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;">
+      <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="4">
+        <div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:26px 22px;">
+          <div style="font:700 13px 'IBM Plex Mono',monospace;color:#34d3e0;letter-spacing:.08em;">{{ p.n }}</div>
+          <div style="font:600 18px 'Space Grotesk';margin-top:12px;">{{ p.t }}</div>
+          <div style="font:400 14px/1.65 'IBM Plex Sans';color:#a9c2c8;margin-top:8px;">{{ p.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <section data-screen-label="Sustainability / Impact" style="max-width:1240px;margin:0 auto;padding:clamp(32px,4vw,56px) clamp(20px,4vw,44px);">
+    <div style="background:linear-gradient(160deg,rgba(52,211,224,.08),rgba(255,255,255,.02));border:1px solid rgba(52,211,224,.22);border-radius:20px;padding:clamp(28px,4vw,44px);">
+      <h2 style="font:700 clamp(24px,3vw,32px) 'Space Grotesk';letter-spacing:-.015em;margin:0 0 24px;">Measured impact across client sites</h2>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+        <sc-for list="{{ impact }}" as="im" hint-placeholder-count="4">
+          <div style="background:rgba(10,26,36,.55);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:22px;">
+            <div style="font:700 28px 'Space Grotesk';color:#34d3e0;">{{ im.v }}</div>
+            <div style="font:400 13.5px/1.55 'IBM Plex Sans';color:#a9c2c8;margin-top:6px;">{{ im.d }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <div style="font:400 12px 'IBM Plex Sans';color:#7f9aa1;margin-top:16px;">Figures shown are representative examples for design review — final metrics to be confirmed with Forbes Water.</div>
+    </div>
+  </section>
+
+  <section data-screen-label="Sustainability / In practice" style="max-width:1240px;margin:0 auto;padding:clamp(32px,4vw,56px) clamp(20px,4vw,44px);">
+    <h2 style="font:700 clamp(26px,3.4vw,36px) 'Space Grotesk';letter-spacing:-.015em;margin:0 0 26px;">Stewardship in practice</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+      <sc-for list="{{ practice }}" as="pa" hint-placeholder-count="3">
+        <div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px 22px;">
+          <svg width="22" height="26" viewBox="0 0 24 30"><path d="M12 1 C12 1 3 12 3 19 a9 9 0 0 0 18 0 C21 12 12 1 12 1 Z" fill="none" stroke="#34d3e0" stroke-width="1.6"></path></svg>
+          <div style="font:600 17px 'Space Grotesk';margin-top:14px;">{{ pa.t }}</div>
+          <div style="font:400 14px/1.65 'IBM Plex Sans';color:#a9c2c8;margin-top:8px;">{{ pa.d }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ PROJECTS ============ -->
+<sc-if value="{{ isProjects }}">
+<div style="animation:fadeUp .5s ease both;">
+  <section data-screen-label="Projects / Hero" style="position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(100% 80% at 90% 0%,rgba(52,211,224,.14),transparent 55%);"></div>
+    <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,88px) clamp(20px,4vw,44px) clamp(36px,5vw,56px);">
+      <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">Projects &amp; Case Studies</div>
+      <h1 style="font:700 clamp(34px,4.4vw,50px)/1.08 'Space Grotesk';letter-spacing:-.02em;margin:16px 0 18px;max-width:22ch;">Proven outcomes across Australia</h1>
+      <p style="font:400 17px/1.7 'IBM Plex Sans';color:#a9c2c8;max-width:62ch;margin:0;text-wrap:pretty;">A selection of engagements showing how independent advice and disciplined delivery translate into lower costs, secure compliance and healthier water. <span style="color:#7f9aa1;">Case studies below are representative examples for design review — to be replaced with approved client projects.</span></p>
+    </div>
+  </section>
+
+  <section data-screen-label="Projects / Grid" style="max-width:1240px;margin:0 auto;padding:clamp(24px,3vw,40px) clamp(20px,4vw,44px);">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;">
+      <sc-for list="{{ projects }}" as="pr" hint-placeholder-count="6">
+        <div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;overflow:hidden;transition:border-color .2s,transform .2s;" style-hover="border-color:rgba(52,211,224,.5);transform:translateY(-3px);">
+          <div style="position:relative;height:150px;background:linear-gradient(180deg,rgba(15,42,52,.45),rgba(10,26,36,.8)),url('{{ pr.img }}') center/cover;">
+            <div style="position:absolute;inset:0;background:radial-gradient(70% 90% at 20% 0%,rgba(52,211,224,.18),transparent 60%);"></div>
+            <div style="position:absolute;top:14px;left:14px;font:600 11px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#062028;background:#34d3e0;padding:5px 10px;border-radius:999px;">{{ pr.sector }}</div>
+            <div style="position:absolute;bottom:12px;left:14px;font:500 10.5px 'IBM Plex Mono',monospace;color:rgba(232,242,244,.5);text-transform:uppercase;">{{ pr.imgLabel }}</div>
+          </div>
+          <div style="padding:22px;">
+            <div style="font:600 18px 'Space Grotesk';line-height:1.3;">{{ pr.t }}</div>
+            <div style="font:400 14px/1.65 'IBM Plex Sans';color:#a9c2c8;margin-top:10px;">{{ pr.d }}</div>
+            <div style="display:flex;gap:18px;margin-top:16px;padding-top:16px;border-top:1px solid rgba(255,255,255,.07);flex-wrap:wrap;">
+              <div><div style="font:700 18px 'Space Grotesk';color:#34d3e0;">{{ pr.m1 }}</div><div style="font:400 11.5px 'IBM Plex Sans';color:#7f9aa1;">{{ pr.m1d }}</div></div>
+              <div><div style="font:700 18px 'Space Grotesk';color:#34d3e0;">{{ pr.m2 }}</div><div style="font:400 11.5px 'IBM Plex Sans';color:#7f9aa1;">{{ pr.m2d }}</div></div>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ CONTACT ============ -->
+<sc-if value="{{ isContact }}">
+<div style="animation:fadeUp .5s ease both;">
+  <section data-screen-label="Contact / Hero" style="position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(100% 80% at 90% 0%,rgba(52,211,224,.14),transparent 55%);"></div>
+    <div style="position:relative;max-width:1240px;margin:0 auto;padding:clamp(56px,7vw,80px) clamp(20px,4vw,44px) clamp(24px,3vw,40px);">
+      <div style="font:600 12px 'Space Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#34d3e0;">Contact</div>
+      <h1 style="font:700 clamp(34px,4.4vw,50px)/1.08 'Space Grotesk';letter-spacing:-.02em;margin:16px 0 18px;max-width:22ch;">Let's solve your water challenges</h1>
+      <p style="font:400 17px/1.7 'IBM Plex Sans';color:#a9c2c8;max-width:60ch;margin:0;text-wrap:pretty;">Tell us about your site and what you're trying to achieve. A senior specialist — not a sales rep — will come back to you within one business day.</p>
+    </div>
+  </section>
+
+  <section data-screen-label="Contact / Form" style="max-width:1240px;margin:0 auto;padding:clamp(24px,3vw,44px) clamp(20px,4vw,44px) clamp(56px,7vw,80px);display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:32px;align-items:start;">
+    <sc-if value="{{ notSubmitted }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ onSubmit }}" noValidate="{{ true }}" style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:clamp(24px,3vw,36px);display:flex;flex-direction:column;gap:18px;">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;">
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <label for="fw-name" style="font:600 13px 'Space Grotesk';color:#a9c2c8;">Full name *</label>
+            <input id="fw-name" name="name" type="text" placeholder="Jane Citizen" style="background:rgba(10,26,36,.7);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:13px 14px;color:#e8f2f4;font-size:14.5px;outline:none;" style-focus="border-color:#34d3e0;">
+            <sc-if value="{{ errors.name }}"><div style="font:500 12.5px 'IBM Plex Sans';color:#ff9d8a;">{{ errors.name }}</div></sc-if>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <label for="fw-email" style="font:600 13px 'Space Grotesk';color:#a9c2c8;">Work email *</label>
+            <input id="fw-email" name="email" type="email" placeholder="jane@company.com.au" style="background:rgba(10,26,36,.7);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:13px 14px;color:#e8f2f4;font-size:14.5px;outline:none;" style-focus="border-color:#34d3e0;">
+            <sc-if value="{{ errors.email }}"><div style="font:500 12.5px 'IBM Plex Sans';color:#ff9d8a;">{{ errors.email }}</div></sc-if>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px;">
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <label for="fw-phone" style="font:600 13px 'Space Grotesk';color:#a9c2c8;">Phone</label>
+            <input id="fw-phone" name="phone" type="tel" placeholder="04xx xxx xxx" style="background:rgba(10,26,36,.7);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:13px 14px;color:#e8f2f4;font-size:14.5px;outline:none;" style-focus="border-color:#34d3e0;">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:7px;">
+            <label for="fw-ind" style="font:600 13px 'Space Grotesk';color:#a9c2c8;">Industry</label>
+            <select id="fw-ind" name="industry" style="background:rgba(10,26,36,.7);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:13px 14px;color:#e8f2f4;font-size:14.5px;outline:none;appearance:auto;" style-focus="border-color:#34d3e0;">
+              <option value="">Select your industry…</option>
+              <option>Mining &amp; Resources</option>
+              <option>Agriculture</option>
+              <option>Commercial &amp; Industrial</option>
+              <option>Government &amp; Municipal</option>
+              <option>Hospitality &amp; Facilities</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:7px;">
+          <label for="fw-msg" style="font:600 13px 'Space Grotesk';color:#a9c2c8;">How can we help? *</label>
+          <textarea id="fw-msg" name="message" rows="5" placeholder="Tell us about your site, your water source, and the challenge you're facing…" style="background:rgba(10,26,36,.7);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:13px 14px;color:#e8f2f4;font-size:14.5px;outline:none;resize:vertical;" style-focus="border-color:#34d3e0;"></textarea>
+          <sc-if value="{{ errors.message }}"><div style="font:500 12.5px 'IBM Plex Sans';color:#ff9d8a;">{{ errors.message }}</div></sc-if>
+        </div>
+        <button type="submit" style="font:600 15px 'Space Grotesk';color:#062028;background:#34d3e0;padding:15px 26px;border-radius:12px;border:none;cursor:pointer;align-self:flex-start;" style-hover="background:#5ee0ea;">Send enquiry</button>
+        <div style="font:400 12px 'IBM Plex Sans';color:#7f9aa1;">Prototype only — no data is sent. * Required fields.</div>
+      </form>
+    </sc-if>
+    <sc-if value="{{ submitted }}">
+      <div style="background:linear-gradient(160deg,rgba(52,211,224,.1),rgba(255,255,255,.02));border:1px solid rgba(52,211,224,.35);border-radius:20px;padding:clamp(32px,4vw,48px);text-align:center;animation:fadeUp .4s ease both;">
+        <svg width="52" height="52" viewBox="0 0 52 52" style="margin:0 auto 18px;display:block;"><circle cx="26" cy="26" r="24" fill="none" stroke="#34d3e0" stroke-width="2"></circle><path d="M16 27 L23 34 L37 19" fill="none" stroke="#34d3e0" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+        <div style="font:700 26px 'Space Grotesk';letter-spacing:-.01em;">Thanks — we've got it.</div>
+        <p style="font:400 15px/1.7 'IBM Plex Sans';color:#a9c2c8;max-width:44ch;margin:12px auto 22px;">A senior water specialist will review your enquiry and respond within one business day. Urgent water quality event? Call us directly.</p>
+        <button onClick="{{ resetForm }}" style="font:600 14px 'Space Grotesk';color:#34d3e0;background:none;border:1px solid rgba(52,211,224,.4);padding:12px 22px;border-radius:12px;cursor:pointer;" style-hover="background:rgba(52,211,224,.08);">Send another enquiry</button>
+      </div>
+    </sc-if>
+    <div style="display:flex;flex-direction:column;gap:16px;">
+      <div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px;">
+        <div style="font:600 16px 'Space Grotesk';margin-bottom:14px;">Direct contact</div>
+        <div style="display:flex;flex-direction:column;gap:12px;font:400 14.5px 'IBM Plex Sans';color:#a9c2c8;">
+          <div style="display:flex;gap:10px;align-items:center;"><span style="color:#34d3e0;">✆</span> <span>1300 000 000 <span style="color:#7f9aa1;">(placeholder)</span></span></div>
+          <div style="display:flex;gap:10px;align-items:center;"><span style="color:#34d3e0;">✉</span> <span>enquiries@forbeswater.com.au <span style="color:#7f9aa1;">(placeholder)</span></span></div>
+          <div style="display:flex;gap:10px;align-items:center;"><span style="color:#34d3e0;">◎</span> <span>Servicing all Australian states &amp; territories</span></div>
+        </div>
+      </div>
+      <div style="background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:24px;">
+        <div style="font:600 16px 'Space Grotesk';margin-bottom:10px;">What happens next</div>
+        <div style="display:flex;flex-direction:column;gap:10px;font:400 14px/1.6 'IBM Plex Sans';color:#a9c2c8;">
+          <div><span style="color:#34d3e0;font:700 13px 'IBM Plex Mono',monospace;">01</span> &nbsp;A specialist reviews your enquiry and site context</div>
+          <div><span style="color:#34d3e0;font:700 13px 'IBM Plex Mono',monospace;">02</span> &nbsp;We book a scoping call — usually within 48 hours</div>
+          <div><span style="color:#34d3e0;font:700 13px 'IBM Plex Mono',monospace;">03</span> &nbsp;You receive a clear, fixed-scope proposal</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+</sc-if>
+
+<!-- ============ SHARED CTA BAND ============ -->
+<sc-if value="{{ showCta }}" hint-placeholder-val="{{ true }}">
+  <section style="max-width:1240px;margin:0 auto;padding:clamp(24px,3vw,44px) clamp(20px,4vw,44px) clamp(48px,6vw,72px);">
+    <div style="position:relative;border-radius:20px;padding:clamp(32px,5vw,52px);text-align:center;background:linear-gradient(120deg,#0b7a8c,#34d3e0);color:#062028;overflow:hidden;">
+      <div style="position:absolute;inset:0;background:radial-gradient(60% 120% at 85% 0%,rgba(255,255,255,.28),transparent 55%);"></div>
+      <div style="position:relative;">
+        <div style="font:700 clamp(26px,3.6vw,36px) 'Space Grotesk';letter-spacing:-.01em;">Let's solve your water challenges</div>
+        <div style="font:400 15.5px/1.6 'IBM Plex Sans';margin:10px auto 0;max-width:52ch;color:rgba(6,32,40,.85);">Independent advice, measurable outcomes, and a single accountable team from first sample to sustained performance.</div>
+        <a href="#/contact" style="display:inline-block;margin-top:24px;font:600 15px 'Space Grotesk';background:#062028;color:#34d3e0;padding:15px 30px;border-radius:12px;" style-hover="background:#0e2f3c;color:#5ee0ea;">Request a Consultation</a>
+      </div>
+    </div>
+  </section>
+</sc-if>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer style="border-top:1px solid rgba(255,255,255,.07);background:rgba(6,18,26,.6);">
+  <div style="max-width:1240px;margin:0 auto;padding:clamp(40px,5vw,60px) clamp(20px,4vw,44px) 28px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:36px;">
+      <div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <svg width="24" height="28" viewBox="0 0 24 30"><path d="M12 1 C12 1 3 12 3 19 a9 9 0 0 0 18 0 C21 12 12 1 12 1 Z" fill="#34d3e0"></path><ellipse cx="9" cy="16" rx="2.4" ry="3.4" fill="#0a1a24" opacity=".28"></ellipse></svg>
+          <span style="font:700 18px 'Space Grotesk';">Forbes<span style="color:#34d3e0;">Water</span></span>
+        </div>
+        <p style="font:400 13.5px/1.7 'IBM Plex Sans';color:#7f9aa1;margin:14px 0 0;max-width:32ch;">Independent water consulting, treatment, monitoring and management for Australian industry, communities and the environment.</p>
+      </div>
+      <div>
+        <div style="font:600 13px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#a9c2c8;margin-bottom:14px;">Services</div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <sc-for list="{{ services }}" as="s" hint-placeholder-count="8">
+            <a href="{{ s.href }}" style="font:400 13.5px 'IBM Plex Sans';color:#7f9aa1;" style-hover="color:#34d3e0;">{{ s.t }}</a>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <div style="font:600 13px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#a9c2c8;margin-bottom:14px;">Industries</div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <sc-for list="{{ industries }}" as="i" hint-placeholder-count="5">
+            <a href="{{ i.href }}" style="font:400 13.5px 'IBM Plex Sans';color:#7f9aa1;" style-hover="color:#34d3e0;">{{ i.t }}</a>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <div style="font:600 13px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#a9c2c8;margin-bottom:14px;">Company</div>
+        <div style="display:flex;flex-direction:column;gap:9px;">
+          <a href="#/about" style="font:400 13.5px 'IBM Plex Sans';color:#7f9aa1;" style-hover="color:#34d3e0;">About Us</a>
+          <a href="#/sustainability" style="font:400 13.5px 'IBM Plex Sans';color:#7f9aa1;" style-hover="color:#34d3e0;">Sustainability</a>
+          <a href="#/projects" style="font:400 13.5px 'IBM Plex Sans';color:#7f9aa1;" style-hover="color:#34d3e0;">Projects</a>
+          <a href="#/contact" style="font:400 13.5px 'IBM Plex Sans';color:#7f9aa1;" style-hover="color:#34d3e0;">Contact</a>
+        </div>
+        <div style="margin-top:18px;font:400 13px/1.7 'IBM Plex Sans';color:#7f9aa1;">1300 000 000<br>enquiries@forbeswater.com.au</div>
+      </div>
+    </div>
+    <div style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;border-top:1px solid rgba(255,255,255,.07);margin-top:36px;padding-top:20px;font:400 12.5px 'IBM Plex Sans';color:#5d747c;">
+      <div>© 2026 Forbes Water Pty Ltd. All rights reserved.</div>
+      <div>ABN 00 000 000 000 (placeholder) · Servicing Australia-wide</div>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1440, &quot;height&quot;: 900}}">
+class Component extends DCLogic {
+  state = { route: "#/", menu: null, mobileOpen: false, submitted: false, errors: {} };
+
+  componentDidMount() {
+    this._onHash = () => {
+      const h = location.hash || "#/";
+      this.setState({ route: h, menu: null, mobileOpen: false, errors: {} });
+      window.scrollTo(0, 0);
+      const seo = this.seoFor(h);
+      if (seo) document.title = seo;
+    };
+    window.addEventListener("hashchange", this._onHash);
+    this._onHash();
+  }
+  componentWillUnmount() { window.removeEventListener("hashchange", this._onHash); }
+
+  seoFor(h) {
+    const p = this.parse(h);
+    if (p.svc) return p.svc.t + " | Forbes Water";
+    if (p.ind) return p.ind.t + " Water Solutions | Forbes Water";
+    const map = {
+      home: "Forbes Water | Independent Water Treatment & Consulting Australia",
+      about: "About Us | Forbes Water",
+      services: "Water Treatment & Consulting Services | Forbes Water",
+      industries: "Industries We Serve | Forbes Water",
+      sustainability: "Sustainable Water Management | Forbes Water",
+      projects: "Projects & Case Studies | Forbes Water",
+      contact: "Contact Forbes Water | Request a Consultation",
+    };
+    return map[p.page];
+  }
+
+  get data() {
+    if (this._d) return this._d;
+    const S = (slug, t, short, blurb, h1, tagline, overview, imgLabel, outcomes, steps, inds) =>
+      ({ slug, href: "#/services/" + slug, t, short, blurb, h1, tagline, overview, imgLabel, outcomes, steps, inds });
+    const I = (s, t) => ({ href: "#/industries/" + s, t });
+    const SV = (s, t) => ({ href: "#/services/" + s, t });
+    const services = [
+      S("industrial-water-treatment", "Industrial Water Treatment",
+        "Process, boiler, cooling and discharge water systems.",
+        "Design, delivery and optimisation of treatment systems for process water, boilers, cooling towers and discharge streams — engineered around your operation, not a product line.",
+        "Industrial water treatment engineered for uptime",
+        "From raw water intake to final discharge, we design and optimise treatment that protects your assets, your product quality and your licence to operate.",
+        "Poorly matched treatment is the most common — and most expensive — problem we find on industrial sites. We start with a full characterisation of your water and your process, then design the simplest reliable treatment train that meets spec: filtration, softening, membrane systems, chemical dosing or a combination. Because we don't sell equipment, the design is judged purely on lifetime cost and performance.",
+        "Industrial treatment plant",
+        [
+          { t: "Fit-for-purpose design", d: "Treatment sized to your real demand — no overbuilt capital you'll never use." },
+          { t: "Asset protection", d: "Scaling, corrosion and fouling controlled before they shorten plant life." },
+          { t: "Lower chemical spend", d: "Dosing optimised against measured water chemistry, not supplier defaults." },
+          { t: "Discharge certainty", d: "Outputs that reliably meet trade waste and EPA licence conditions." },
+        ],
+        [
+          { n: "01", t: "Characterise", d: "Sample and analyse every water stream entering and leaving the process." },
+          { n: "02", t: "Design", d: "Model options and recommend the lowest whole-of-life-cost treatment train." },
+          { n: "03", t: "Deliver", d: "Manage procurement, installation and commissioning with vendors of your choice." },
+          { n: "04", t: "Optimise", d: "Tune performance against live data through the first months of operation." },
+        ],
+        [I("mining", "Mining & Resources"), I("commercial-industrial", "Commercial & Industrial"), I("government", "Government & Municipal")]),
+      S("drinking-water-quality", "Drinking Water Quality",
+        "Safe, compliant potable water for communities and sites.",
+        "Potable water risk management, disinfection and ADWG compliance for towns, remote sites and facilities — so the water people drink is never in question.",
+        "Drinking water quality you can stand behind",
+        "Risk-based management of potable supplies — from source to tap — aligned with the Australian Drinking Water Guidelines.",
+        "Whether you supply a workforce camp, a caravan park or a regional community, the obligations are the same: safe water, every day, provably. We build and maintain drinking water risk management plans, design disinfection and treatment barriers, run verification monitoring programs and prepare you for regulator audits — turning compliance from a worry into a routine.",
+        "Potable water sampling",
+        [
+          { t: "ADWG-aligned risk plans", d: "Documented, auditable risk management from catchment to consumer." },
+          { t: "Multi-barrier protection", d: "Treatment and disinfection designed for your actual source risks." },
+          { t: "Verification monitoring", d: "Sampling programs that prove performance, not just tick boxes." },
+          { t: "Audit readiness", d: "Records and reporting regulators accept the first time." },
+        ],
+        [
+          { n: "01", t: "Assess", d: "Source-to-tap risk assessment of your supply and existing barriers." },
+          { n: "02", t: "Plan", d: "Drinking water risk management plan with clear critical limits." },
+          { n: "03", t: "Implement", d: "Treatment upgrades, monitoring hardware and operator training." },
+          { n: "04", t: "Verify", d: "Ongoing sampling, review and continuous improvement cycles." },
+        ],
+        [I("mining", "Mining & Resources"), I("government", "Government & Municipal"), I("hospitality", "Hospitality & Facilities")]),
+      S("wastewater-solutions", "Wastewater Solutions",
+        "Trade waste, effluent treatment and discharge compliance.",
+        "Practical wastewater and trade waste solutions that keep you inside your discharge limits — and turn disposal costs into recovery opportunities where the numbers stack up.",
+        "Wastewater solutions that end discharge anxiety",
+        "Effluent treatment, trade waste management and discharge licensing support for industrial and municipal operators.",
+        "Wastewater is where compliance risk and operating cost collide. We audit your effluent streams, identify what can be reduced at source, design or upgrade treatment to meet discharge limits with margin, and manage trade waste agreements with utilities. Where volumes justify it, we assess recovery options — reuse, nutrient capture or energy — so waste becomes a smaller line item.",
+        "Effluent treatment lagoon",
+        [
+          { t: "Discharge compliance", d: "Treatment designed to meet licence limits with operating headroom." },
+          { t: "Reduced trade waste fees", d: "Load reduced at source before it reaches the meter." },
+          { t: "Odour & amenity control", d: "Treatment that keeps neighbours and regulators off the phone." },
+          { t: "Recovery options", d: "Reuse and resource recovery assessed on real payback, not fashion." },
+        ],
+        [
+          { n: "01", t: "Audit", d: "Characterise effluent streams, loads and existing treatment performance." },
+          { n: "02", t: "Reduce", d: "Cut load at source through process and housekeeping changes." },
+          { n: "03", t: "Treat", d: "Design or upgrade treatment to meet limits reliably." },
+          { n: "04", t: "Manage", d: "Ongoing monitoring, reporting and utility liaison." },
+        ],
+        [I("mining", "Mining & Resources"), I("commercial-industrial", "Commercial & Industrial"), I("agriculture", "Agriculture")]),
+      S("water-recycling-reuse", "Water Recycling & Reuse",
+        "Cut mains demand and discharge with fit-for-purpose reuse.",
+        "Capture, treat and reuse water across your site — cutting mains demand, discharge volumes and cost while strengthening your sustainability position.",
+        "Water recycling that pays its own way",
+        "Fit-for-purpose reuse schemes that match treated water quality to each application — no more, no less.",
+        "Most sites pay twice for water: once to buy it, once to dispose of it. Recycling breaks that cycle. We identify reuse opportunities across your site — wash-down, irrigation, cooling make-up, dust suppression, process feed — and design treatment that lifts each stream to exactly the quality its new duty requires. The result is a scheme with genuine payback, not a green gesture.",
+        "Water recycling plant",
+        [
+          { t: "Lower mains demand", d: "Purchased water displaced by treated on-site streams." },
+          { t: "Smaller discharge bill", d: "Every kilolitre reused is one you don't pay to dispose of." },
+          { t: "Fit-for-purpose quality", d: "Each reuse duty gets the treatment it needs — nothing gold-plated." },
+          { t: "ESG substance", d: "Reported recycling figures backed by metered, auditable data." },
+        ],
+        [
+          { n: "01", t: "Balance", d: "Site-wide water balance mapping every source, use and discharge." },
+          { n: "02", t: "Match", d: "Pair candidate streams with duties they can serve after treatment." },
+          { n: "03", t: "Build", d: "Deliver treatment, storage and reticulation for the selected scheme." },
+          { n: "04", t: "Meter", d: "Measure savings and report them credibly." },
+        ],
+        [I("mining", "Mining & Resources"), I("agriculture", "Agriculture"), I("commercial-industrial", "Commercial & Industrial")]),
+      S("groundwater-monitoring", "Groundwater & Bore Monitoring",
+        "Bore performance, aquifer sampling and licensing support.",
+        "Groundwater monitoring, bore performance assessment and licensing support that protect both your water security and your compliance standing.",
+        "Groundwater monitoring done properly",
+        "Reliable data on bore performance and aquifer health — collected, interpreted and reported by specialists.",
+        "Groundwater problems announce themselves slowly, then all at once: falling yields, rising salinity, a licence review you weren't ready for. We run structured monitoring programs — levels, quality, abstraction — assess bore condition and efficiency, and prepare the technical reporting your licences require. When bores underperform, we diagnose whether the answer is rehabilitation, redevelopment or replacement before you spend.",
+        "Bore field monitoring",
+        [
+          { t: "Defensible data", d: "Sampling and measurement to standards regulators accept." },
+          { t: "Early warning", d: "Trends in yield and quality flagged before they become failures." },
+          { t: "Licence support", d: "Technical reporting for renewals, reviews and new allocations." },
+          { t: "Bore asset planning", d: "Rehabilitate, redevelop or replace — decided on evidence." },
+        ],
+        [
+          { n: "01", t: "Baseline", d: "Establish current bore condition, yield and water quality." },
+          { n: "02", t: "Monitor", d: "Scheduled level, quality and abstraction monitoring rounds." },
+          { n: "03", t: "Interpret", d: "Trend analysis and clear reporting — not just data dumps." },
+          { n: "04", t: "Act", d: "Targeted interventions when the data says so." },
+        ],
+        [I("agriculture", "Agriculture"), I("mining", "Mining & Resources"), I("government", "Government & Municipal")]),
+      S("testing-compliance", "Water Testing & Compliance",
+        "Accredited sampling programs, audits and reporting.",
+        "Structured sampling programs, NATA-accredited laboratory analysis and compliance reporting — the evidence base for every water decision you make.",
+        "Testing and compliance without the scramble",
+        "Sampling programs and reporting that keep you continuously audit-ready across every obligation.",
+        "Most compliance failures aren't caused by bad water — they're caused by gaps: a missed sample, an unactioned exceedance, a report filed late. We design monitoring programs around your actual obligations, take samples to chain-of-custody standards, work with NATA-accredited laboratories, and turn results into plain-English reporting with clear actions. Exceedances get escalated the day they're known, not at month end.",
+        "Field sampling kit",
+        [
+          { t: "Complete coverage", d: "Every licence condition mapped to a scheduled sample or check." },
+          { t: "Accredited analysis", d: "NATA-accredited laboratory partners for defensible results." },
+          { t: "Plain-English reporting", d: "Results interpreted with actions — not spreadsheets to decode." },
+          { t: "Rapid escalation", d: "Exceedances flagged and managed within 24 hours." },
+        ],
+        [
+          { n: "01", t: "Map", d: "Register every compliance obligation across your permits." },
+          { n: "02", t: "Schedule", d: "Build the sampling and inspection calendar." },
+          { n: "03", t: "Sample", d: "Field collection to chain-of-custody standards." },
+          { n: "04", t: "Report", d: "Interpreted results, trends and regulator-ready records." },
+        ],
+        [I("government", "Government & Municipal"), I("hospitality", "Hospitality & Facilities"), I("commercial-industrial", "Commercial & Industrial")]),
+      S("process-optimisation", "Process Optimisation",
+        "Audits that cut chemical, energy and water costs.",
+        "Independent audits of treatment performance, chemical dosing, energy use and membrane health — finding the savings your incumbent supplier has no incentive to show you.",
+        "Optimisation your supplier won't offer",
+        "Independent performance audits that routinely cut water treatment operating costs by 20–40%.",
+        "Treatment systems drift: setpoints creep, dosing rises 'to be safe', membranes are replaced on schedule rather than condition. Because we're independent, we can ask the questions a chemical or equipment supplier can't. Our audits benchmark your plant against its design intent and best practice, then deliver a ranked list of actions — most requiring no capital at all.",
+        "Plant performance audit",
+        [
+          { t: "Ranked savings register", d: "Every opportunity costed and ordered by payback." },
+          { t: "Chemical right-sizing", d: "Dosing matched to measured demand, not habit." },
+          { t: "Energy reduction", d: "Pumping and treatment energy benchmarked and trimmed." },
+          { t: "Longer asset life", d: "Membranes and media run on condition, not calendar." },
+        ],
+        [
+          { n: "01", t: "Benchmark", d: "Compare current performance to design and best practice." },
+          { n: "02", t: "Diagnose", d: "Trace each gap to its root cause on site." },
+          { n: "03", t: "Prioritise", d: "Rank actions by savings, cost and risk." },
+          { n: "04", t: "Embed", d: "Implement, verify savings and lock in new setpoints." },
+        ],
+        [I("mining", "Mining & Resources"), I("commercial-industrial", "Commercial & Industrial"), I("hospitality", "Hospitality & Facilities")]),
+      S("sustainable-management", "Sustainable Water Management",
+        "Water balance studies, efficiency roadmaps and ESG reporting.",
+        "Site-wide water strategy — balance studies, efficiency roadmaps and credible ESG reporting that stands up to investor and regulator scrutiny.",
+        "Water strategy for the decade ahead",
+        "Long-term water security, efficiency and reporting — planned as one program instead of scattered projects.",
+        "Water is becoming a board-level risk: scarcer allocations, tighter discharge rules, ESG disclosure that must survive audit. We help you get ahead of it with a site or portfolio water strategy — a measured baseline, a costed efficiency roadmap, and reporting frameworks aligned to the standards your stakeholders use. Every claim in the report traces back to a meter.",
+        "Site water balance review",
+        [
+          { t: "Measured baseline", d: "A defensible water balance for every site in scope." },
+          { t: "Costed roadmap", d: "Efficiency and resilience projects sequenced by return." },
+          { t: "Credible ESG data", d: "Disclosure-ready water metrics with a clear audit trail." },
+          { t: "Water security", d: "Supply risks identified and mitigated before they bite." },
+        ],
+        [
+          { n: "01", t: "Baseline", d: "Meter, measure and reconcile all water flows." },
+          { n: "02", t: "Strategise", d: "Set targets aligned to business and regulatory horizons." },
+          { n: "03", t: "Roadmap", d: "Sequence projects with costs, savings and owners." },
+          { n: "04", t: "Report", d: "Track progress in disclosure-ready formats." },
+        ],
+        [I("mining", "Mining & Resources"), I("government", "Government & Municipal"), I("agriculture", "Agriculture")]),
+    ];
+    const industries = [
+      { slug: "mining", href: "#/industries/mining", t: "Mining & Resources", d: "Process & environmental water",
+        h1: "Water solutions for mining & resources",
+        imgLabel: "Mine site water infrastructure",
+        intro: "From dewatering and process water to camp potable supplies and closure obligations, mining runs on water. We help operators secure supply, meet environmental conditions and cut the real cost per kilolitre — with advice that's independent of any equipment or chemical vendor.",
+        challenges: [
+          { t: "Dewatering & excess water", d: "Managing volumes, quality and discharge conditions when the pit produces more water than the plant needs." },
+          { t: "Process water quality", d: "Recovery circuits are sensitive to salinity and chemistry drift — we keep process water inside the window." },
+          { t: "Camp & village supply", d: "ADWG-compliant potable water for remote workforces, monitored and documented." },
+        ],
+        svcs: [SV("industrial-water-treatment", "Industrial Water Treatment"), SV("water-recycling-reuse", "Water Recycling & Reuse"), SV("groundwater-monitoring", "Groundwater & Bore Monitoring"), SV("drinking-water-quality", "Drinking Water Quality")],
+        stat: "1.2GL", statD: "Water recycled annually across mining client sites — displacing raw abstraction and cutting discharge volumes. (Representative figure for design review.)" },
+      { slug: "agriculture", href: "#/industries/agriculture", t: "Agriculture", d: "Irrigation & bore water",
+        h1: "Water solutions for agriculture",
+        imgLabel: "Irrigation infrastructure",
+        intro: "Yield starts with water quality. We help growers and producers protect bore assets, match irrigation water quality to crops and soils, and keep livestock supplies safe — turning water from a background worry into a managed asset.",
+        challenges: [
+          { t: "Bore reliability & salinity", d: "Falling yields and creeping salinity diagnosed early, before they threaten a season." },
+          { t: "Irrigation water quality", d: "Chemistry matched to crop and soil tolerance to protect long-term productivity." },
+          { t: "Livestock water safety", d: "Supplies tested and treated so stock health is never the variable." },
+        ],
+        svcs: [SV("groundwater-monitoring", "Groundwater & Bore Monitoring"), SV("testing-compliance", "Water Testing & Compliance"), SV("water-recycling-reuse", "Water Recycling & Reuse"), SV("sustainable-management", "Sustainable Water Management")],
+        stat: "68", statD: "Agricultural enterprises supported with bore monitoring and irrigation water programs. (Representative figure for design review.)" },
+      { slug: "commercial-industrial", href: "#/industries/commercial-industrial", t: "Commercial & Industrial", d: "Treatment & efficiency",
+        h1: "Water solutions for commercial & industrial sites",
+        imgLabel: "Cooling tower plant room",
+        intro: "Manufacturers, processors and large facilities carry water costs on three fronts: supply, treatment and trade waste. We attack all three — optimising cooling and boiler systems, right-sizing treatment and cutting discharge loads at source.",
+        challenges: [
+          { t: "Cooling & boiler efficiency", d: "Scale, corrosion and blowdown losses controlled with chemistry, not guesswork." },
+          { t: "Trade waste costs", d: "Loads reduced at source so fees fall and agreements stay comfortable." },
+          { t: "Process water reliability", d: "Consistent quality feed water that protects product and plant alike." },
+        ],
+        svcs: [SV("industrial-water-treatment", "Industrial Water Treatment"), SV("process-optimisation", "Process Optimisation"), SV("wastewater-solutions", "Wastewater Solutions"), SV("water-recycling-reuse", "Water Recycling & Reuse")],
+        stat: "32%", statD: "Average reduction in water operating costs achieved through independent optimisation audits. (Representative figure for design review.)" },
+      { slug: "government", href: "#/industries/government", t: "Government & Municipal", d: "Community & infrastructure",
+        h1: "Water solutions for government & municipal",
+        imgLabel: "Community water infrastructure",
+        intro: "Councils and agencies answer to the highest standard of all: public trust. We support drinking water risk management, wastewater compliance, infrastructure planning and the technical reporting that keeps community supplies safe and defensible.",
+        challenges: [
+          { t: "Drinking water obligations", d: "ADWG-aligned risk plans, verification monitoring and audit-ready records." },
+          { t: "Ageing infrastructure", d: "Independent condition and options assessments before capital is committed." },
+          { t: "Environmental compliance", d: "Discharge, recycled water and catchment obligations managed as one program." },
+        ],
+        svcs: [SV("drinking-water-quality", "Drinking Water Quality"), SV("testing-compliance", "Water Testing & Compliance"), SV("wastewater-solutions", "Wastewater Solutions"), SV("sustainable-management", "Sustainable Water Management")],
+        stat: "100%", statD: "Microbiological compliance maintained across managed community drinking water programs. (Representative figure for design review.)" },
+      { slug: "hospitality", href: "#/industries/hospitality", t: "Hospitality & Facilities", d: "Hygiene & risk management",
+        h1: "Water solutions for hospitality & facilities",
+        imgLabel: "Facility plant room",
+        intro: "Hotels, venues and facility portfolios carry quiet but serious water risks — Legionella in warm water systems, pool and spa compliance, cooling tower registration. We run the programs that keep guests safe and liability off your desk.",
+        challenges: [
+          { t: "Legionella risk", d: "Warm water system risk plans, monitoring and remediation to AS/NZS standards." },
+          { t: "Pool & spa compliance", d: "Water quality management that keeps health inspectors satisfied and guests happy." },
+          { t: "Cooling tower obligations", d: "Registration, risk management plans and audits handled end to end." },
+        ],
+        svcs: [SV("testing-compliance", "Water Testing & Compliance"), SV("drinking-water-quality", "Drinking Water Quality"), SV("process-optimisation", "Process Optimisation"), SV("industrial-water-treatment", "Industrial Water Treatment")],
+        stat: "24h", statD: "Maximum response time for urgent water quality events across managed hospitality portfolios. (Representative figure for design review.)" },
+    ];
+    const projects = [
+      { sector: "Mining", t: "Process water recycling scheme, WA goldfields", imgLabel: "Recycling plant",
+        d: "A site-wide water balance uncovered 40% of process demand that could be met from treated dewatering flows. We designed and delivered the recycling train and reticulation.",
+        m1: "1.2GL/yr", m1d: "Raw abstraction displaced", m2: "2.1yr", m2d: "Capital payback" },
+      { sector: "Government", t: "Regional drinking water scheme upgrade", imgLabel: "Treatment plant",
+        d: "Rebuilt a shire's drinking water risk management plan, upgraded disinfection barriers and established verification monitoring across four towns.",
+        m1: "100%", m1d: "Microbiological compliance", m2: "4", m2d: "Communities covered" },
+      { sector: "Industrial", t: "Trade waste reduction, food manufacturer", imgLabel: "Effluent treatment",
+        d: "Source-level load reduction and a targeted treatment upgrade brought a growing food plant back inside its trade waste agreement — without production constraints.",
+        m1: "-58%", m1d: "BOD load to sewer", m2: "$310k/yr", m2d: "Fee reduction" },
+      { sector: "Hospitality", t: "Legionella management program, hotel group", imgLabel: "Warm water system",
+        d: "Portfolio-wide warm water risk assessment, remediation of legacy dead legs and an ongoing monitoring program across nine properties.",
+        m1: "9", m1d: "Properties covered", m2: "Zero", m2d: "Detections since program start" },
+      { sector: "Agriculture", t: "Bore field rehabilitation, irrigated cropping", imgLabel: "Bore rehabilitation",
+        d: "Diagnosed declining yields as iron bacteria fouling rather than aquifer stress; staged rehabilitation restored capacity ahead of the irrigation season.",
+        m1: "+64%", m1d: "Yield recovered", m2: "3wk", m2d: "Ahead of season start" },
+      { sector: "Industrial", t: "Cooling system optimisation, manufacturing campus", imgLabel: "Cooling towers",
+        d: "An independent audit found over-dosing and excessive blowdown across three cooling circuits. New setpoints and controls cut water and chemical spend sharply.",
+        m1: "-27%", m1d: "Make-up water use", m2: "-35%", m2d: "Chemical spend" },
+    ];
+    const U = (id) => "https://images.unsplash.com/photo-" + id + "?auto=format&fit=crop&w=1200&q=60";
+    const SIMG = {
+      "industrial-water-treatment": U("1504328345606-18bbc8c9d7d1"),
+      "drinking-water-quality": U("1523362628745-0c100150b504"),
+      "wastewater-solutions": U("1538300342682-cf57afb97285"),
+      "water-recycling-reuse": U("1470115636492-6d2b56f9146d"),
+      "groundwater-monitoring": U("1500382017468-9049fed747ef"),
+      "testing-compliance": U("1532187863486-abf9dbad1b69"),
+      "process-optimisation": U("1581091226825-a6a2a5aee158"),
+      "sustainable-management": U("1466611653911-95081537e5b7"),
+    };
+    const IIMG = {
+      mining: U("1516937941344-00b4e0337589"),
+      agriculture: U("1625246333195-78d9c38ad449"),
+      "commercial-industrial": U("1504328345606-18bbc8c9d7d1"),
+      government: U("1477959858617-67f85cf4f1df"),
+      hospitality: U("1566073771259-6a8506099945"),
+    };
+    services.forEach(s => { s.img = SIMG[s.slug]; });
+    industries.forEach(i => { i.img = IIMG[i.slug]; });
+    const PIMG = ["1516937941344-00b4e0337589", "1477959858617-67f85cf4f1df", "1504328345606-18bbc8c9d7d1", "1566073771259-6a8506099945", "1625246333195-78d9c38ad449", "1581091226825-a6a2a5aee158"];
+    projects.forEach((p, i) => { p.img = U(PIMG[i]); });
+    this._d = { services, industries, projects };
+    return this._d;
+  }
+
+  parse(h) {
+    const parts = (h || "#/").replace(/^#\//, "").split("/").filter(Boolean);
+    const d = this.data;
+    if (!parts.length) return { page: "home" };
+    if (parts[0] === "services" && parts[1]) {
+      const svc = d.services.find(s => s.slug === parts[1]);
+      return svc ? { page: "svc", svc } : { page: "services" };
+    }
+    if (parts[0] === "industries" && parts[1]) {
+      const ind = d.industries.find(i => i.slug === parts[1]);
+      return ind ? { page: "ind", ind } : { page: "industries" };
+    }
+    const known = ["about", "services", "industries", "sustainability", "projects", "contact"];
+    return { page: known.includes(parts[0]) ? parts[0] : "home" };
+  }
+
+  onSubmitForm(e) {
+    e.preventDefault();
+    const f = e.target.elements;
+    const errors = {};
+    if (!f.name.value.trim()) errors.name = "Please enter your name.";
+    const em = f.email.value.trim();
+    if (!em) errors.email = "Please enter your work email.";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) errors.email = "That email doesn't look right — please check it.";
+    if (!f.message.value.trim()) errors.message = "Tell us briefly what you need help with.";
+    if (Object.keys(errors).length) { this.setState({ errors }); return; }
+    this.setState({ errors: {}, submitted: true });
+    window.scrollTo(0, 0);
+  }
+
+  renderVals() {
+    const d = this.data;
+    const p = this.parse(this.state.route);
+    return {
+      services: d.services,
+      industries: d.industries,
+      projects: d.projects,
+      featuredProjects: d.projects.slice(0, 3),
+      isHome: p.page === "home",
+      isAbout: p.page === "about",
+      isServices: p.page === "services",
+      isServiceDetail: p.page === "svc",
+      isIndustries: p.page === "industries",
+      isIndustryDetail: p.page === "ind",
+      isSustainability: p.page === "sustainability",
+      isProjects: p.page === "projects",
+      isContact: p.page === "contact",
+      showCta: p.page !== "contact",
+      svc: p.svc || {},
+      ind: p.ind || {},
+      svcMenuOpen: this.state.menu === "svc",
+      indMenuOpen: this.state.menu === "ind",
+      openSvcMenu: () => this.setState({ menu: "svc" }),
+      openIndMenu: () => this.setState({ menu: "ind" }),
+      closeMenus: () => this.setState({ menu: null }),
+      mobileOpen: this.state.mobileOpen,
+      toggleMobile: () => this.setState(s => ({ mobileOpen: !s.mobileOpen })),
+      closeMobile: () => this.setState({ mobileOpen: false }),
+      submitted: this.state.submitted,
+      notSubmitted: !this.state.submitted,
+      errors: this.state.errors,
+      onSubmit: (e) => this.onSubmitForm(e),
+      resetForm: () => this.setState({ submitted: false, errors: {} }),
+      why: [
+        { n: "01", t: "Genuinely independent", d: "We sell no chemicals and no equipment — recommendations are judged only on your outcomes." },
+        { n: "02", t: "End-to-end accountability", d: "One senior team from diagnosis through design, delivery and ongoing management." },
+        { n: "03", t: "Compliance-first discipline", d: "Every program is built backwards from your licence conditions and obligations." },
+        { n: "04", t: "Sustainability with payback", d: "Efficiency and reuse designed to cut costs, not just decorate reports." },
+      ],
+      process: [
+        { n: "01", t: "Assess", d: "We sample, measure and audit before we recommend anything — the water sets the agenda." },
+        { n: "02", t: "Design", d: "Options are modelled and costed; you choose with full visibility of trade-offs." },
+        { n: "03", t: "Implement", d: "We deliver with vendors of your choice — or manage the whole program for you." },
+        { n: "04", t: "Optimise", d: "Live monitoring and periodic reviews keep performance improving year on year." },
+      ],
+      values: [
+        { t: "Independence", d: "No equipment lines, no chemical margins. Advice with nothing behind it but evidence." },
+        { t: "Rigour", d: "Decisions built on sampling, data and standards — never on assumption or habit." },
+        { t: "Stewardship", d: "Water is a shared resource. We design as if the catchment were a client too." },
+        { t: "Straight talk", d: "Plain-English reporting, honest trade-offs, and bad news delivered early." },
+      ],
+      team: [
+        { name: "[Principal Name]", role: "Principal Water Consultant", bio: "Placeholder profile — 20+ years across industrial treatment and compliance. Final bios to be supplied by Forbes Water." },
+        { name: "[Engineer Name]", role: "Senior Process Engineer", bio: "Placeholder profile — treatment design and optimisation specialist. Final bios to be supplied by Forbes Water." },
+        { name: "[Scientist Name]", role: "Environmental Scientist", bio: "Placeholder profile — monitoring, groundwater and reporting lead. Final bios to be supplied by Forbes Water." },
+      ],
+      engagement: [
+        { n: "01", t: "Advisory & Audits", d: "One-off assessments, audits and expert reviews with a clear report and ranked actions — ideal for a second opinion or a stubborn problem." },
+        { n: "02", t: "Project Delivery", d: "Fixed-scope design and delivery of treatment, recycling or monitoring upgrades, managed end to end with vendors of your choice." },
+        { n: "03", t: "Ongoing Management", d: "We run your water program — monitoring, compliance, optimisation and reporting — as an extension of your team." },
+      ],
+      pillars: [
+        { n: "01", t: "Reduce demand", d: "Efficiency first: fixing losses, right-sizing use and eliminating waste before any new supply is considered." },
+        { n: "02", t: "Recycle & reuse", d: "Fit-for-purpose reuse that displaces purchased water and shrinks discharge — with metered, provable savings." },
+        { n: "03", t: "Protect environments", d: "Discharge quality, catchment health and aquifer sustainability engineered in from the first design sketch." },
+        { n: "04", t: "Measure & report", d: "Credible, auditable water data — because stewardship claims are only as good as the meters behind them." },
+      ],
+      impact: [
+        { v: "1.2GL", d: "Water recycled annually across client sites" },
+        { v: "32%", d: "Average client water cost reduction" },
+        { v: "-41%", d: "Average discharge volume reduction on reuse projects" },
+        { v: "340+", d: "Sites operating under managed water programs" },
+      ],
+      practice: [
+        { t: "Reuse before new supply", d: "Every supply study we run starts with what the site already has — most 'shortage' problems are efficiency problems in disguise." },
+        { t: "Catchment-aware discharge", d: "We design discharge quality to the receiving environment's needs, not just the licence minimum." },
+        { t: "Honest ESG numbers", d: "We'll only report a water metric we can trace to a meter — and we've talked clients out of claims that wouldn't survive audit." },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>

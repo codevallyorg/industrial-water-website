@@ -1,0 +1,9 @@
+{
+  "collectionName": "components_ui_icon_items",
+  "info": { "displayName": "Icon Item", "icon": "check", "description": "{title,description}. Used by: about values, service outcomes, sustainability practice, industry challenges. The icon is chosen by the section in code, not per item." },
+  "options": {},
+  "attributes": {
+    "title": { "type": "string", "required": true },
+    "description": { "type": "text", "required": true }
+  }
+}
