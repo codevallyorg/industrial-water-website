@@ -80,6 +80,18 @@
   }
 }
 
+/* Active nav underline — a restrained left-to-right draw, on-brand with the design's calm feel. */
+@keyframes growX {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
 @layer base {
   html {
     background: var(--color-ink);

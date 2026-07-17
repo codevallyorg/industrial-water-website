@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { useEffect, useId, useRef, useState } from 'react';
 import { Burger, Chevron, Droplet } from '@/components/icons';
 import type { IndustryRef, Navigation, ServiceRef } from '@/lib/strapi/types';
@@ -21,13 +22,30 @@ type Props = {
   industries: IndustryRef[];
 };
 
-const linkCls = 'rounded-sm px-3 py-[9px] text-muted transition-colors hover:bg-fill-3 hover:text-text';
+const linkCls =
+  'relative rounded-sm px-3 py-[9px] transition-colors hover:bg-fill-3 hover:text-text';
+
+/** A short accent bar under the active nav item — the "you are here" cue (option A). */
+function ActiveUnderline() {
+  return (
+    <span
+      aria-hidden="true"
+      className="pointer-events-none absolute bottom-[5px] left-3 right-3 h-[2px] origin-left rounded-full bg-accent [animation:growX_.25s_ease_both]"
+    />
+  );
+}
 
 export function Header({ nav, services, industries }: Props) {
   const [menu, setMenu] = useState<'services' | 'industries' | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const navId = useId();
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pathname = usePathname();
+
+  // A top-level item is active on its own page and on any child route (e.g. Services is active on
+  // /services and every /services/<slug>). Home only matches exactly.
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
 
   // Escape closes whatever is open — keyboard users need a way out the prototype never had.
   useEffect(() => {
@@ -57,7 +75,7 @@ export function Header({ nav, services, industries }: Props) {
 
   return (
     <header className="sticky top-0 z-[60] border-b border-line-soft bg-[rgba(10,26,36,.88)] backdrop-blur-[14px]">
-      <div className="container-site flex flex-wrap items-center gap-4 py-[14px]">
+      <div className="container-site flex flex-wrap items-center justify-between gap-5 py-[14px]">
         <Link href="/" className="flex items-center gap-[11px] text-text">
           <span className="text-accent">
             <Droplet width={26} height={30} />
@@ -69,13 +87,21 @@ export function Header({ nav, services, industries }: Props) {
 
         <nav
           aria-label="Main"
-          className="ml-auto hidden items-center gap-1 font-display text-[14px] font-medium max-[1120px]:order-3 max-[1120px]:ml-0 max-[1120px]:w-full max-[1120px]:basis-full max-[1120px]:justify-center min-[901px]:flex"
+          className="hidden items-center gap-1 font-display text-[14px] font-medium max-[1120px]:order-3 max-[1120px]:w-full max-[1120px]:basis-full max-[1120px]:justify-center min-[901px]:flex"
         >
           {nav.mainItems.map((item) => {
+            const active = isActive(item.href);
+
             if (item.megaMenu === 'none') {
               return (
-                <Link key={item.href} href={item.href} className={linkCls}>
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  aria-current={active ? 'page' : undefined}
+                  className={`${linkCls} ${active ? 'text-accent' : 'text-muted'}`}
+                >
                   {item.label}
+                  {active ? <ActiveUnderline /> : null}
                 </Link>
               );
             }
@@ -89,7 +115,8 @@ export function Header({ nav, services, industries }: Props) {
               <div key={item.href} className="relative" onMouseEnter={() => open(which)} onMouseLeave={scheduleClose}>
                 <Link
                   href={item.href}
-                  className={`${linkCls} inline-flex items-center gap-[6px]`}
+                  aria-current={active ? 'page' : undefined}
+                  className={`${linkCls} inline-flex items-center gap-[6px] ${active ? 'text-accent' : 'text-muted'}`}
                   aria-expanded={isOpen}
                   aria-controls={panelId}
                   aria-haspopup="true"
@@ -97,9 +124,10 @@ export function Header({ nav, services, industries }: Props) {
                   onClick={() => setMenu(null)}
                 >
                   {item.label}
-                  <span className="text-dim">
+                  <span className={active ? 'text-accent' : 'text-dim'}>
                     <Chevron />
                   </span>
+                  {active ? <ActiveUnderline /> : null}
                 </Link>
 
                 {isOpen ? (
@@ -139,7 +167,7 @@ export function Header({ nav, services, industries }: Props) {
         {nav.ctaButton ? (
           <Link
             href={nav.ctaButton.href}
-            className="ml-auto hidden whitespace-nowrap rounded-pill bg-accent px-5 py-[11px] font-display text-[13px] font-semibold text-on-accent transition-colors hover:bg-accent-hi min-[901px]:inline-flex min-[1121px]:ml-0"
+            className="hidden whitespace-nowrap rounded-pill bg-accent px-5 py-[11px] font-display text-[13px] font-semibold text-on-accent transition-colors hover:bg-accent-hi min-[901px]:inline-flex"
           >
             {nav.ctaButton.label}
           </Link>
@@ -151,7 +179,7 @@ export function Header({ nav, services, industries }: Props) {
           aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
           aria-expanded={mobileOpen}
           aria-controls={`${navId}-mobile`}
-          className="ml-auto inline-flex items-center justify-center rounded-sm border border-line p-[10px] text-text min-[901px]:hidden"
+          className="inline-flex items-center justify-center rounded-sm border border-line p-[10px] text-text min-[901px]:hidden"
         >
           <Burger />
         </button>
@@ -217,11 +245,17 @@ function MobileLink({
   children: React.ReactNode;
   onNavigate: () => void;
 }) {
+  const pathname = usePathname();
+  // Exact match — the mobile list is granular (each service/industry is its own link).
+  const active = pathname === href;
   return (
     <Link
       href={href}
       onClick={onNavigate}
-      className="block rounded-sm px-2 py-[10px] text-[15px] text-muted hover:bg-fill-3 hover:text-text"
+      aria-current={active ? 'page' : undefined}
+      className={`block rounded-sm px-2 py-[10px] text-[15px] hover:bg-fill-3 hover:text-text ${
+        active ? 'text-accent' : 'text-muted'
+      }`}
     >
       {children}
     </Link>
