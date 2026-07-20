@@ -10,6 +10,11 @@ const isLocalHost = /^(localhost|127\.|0\.0\.0\.0|::1|10\.|192\.168\.|172\.(1[6-
 );
 
 const nextConfig: NextConfig = {
+  // Next blocks cross-origin requests to dev-only assets and endpoints by default, so serving
+  // `next dev` through a tunnel 503s the HMR channel and the app never hydrates — every Client
+  // Component (nav dropdowns, burger, contact form) silently stops responding. Allowlisting the
+  // tunnel host fixes it. Dev-only: Next ignores this in production builds.
+  allowedDevOrigins: ['*.ngrok-free.dev', '*.ngrok.io', '*.ngrok-free.app'],
   images: {
     // Strapi's Media Library serves every editable image. Allowlist only its host.
     remotePatterns: [

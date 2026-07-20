@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { mediaUrl } from '@/lib/strapi/client';
 import { DropletOutline } from '@/components/icons';
@@ -59,12 +60,21 @@ export function IndustryTileGrid({ industries }: { industries: IndustryCard[] })
             key={i.slug}
             href={`/industries/${i.slug}`}
             className="relative block h-[180px] overflow-hidden rounded-lg border border-line text-text transition-[border-color,transform] duration-200 hover:-translate-y-[3px] hover:border-accent-edge"
-            style={{
-              backgroundImage: `linear-gradient(180deg,rgba(15,42,52,.55),rgba(10,26,36,.92))${img ? `,url('${img}')` : ''}`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-            }}
           >
+            {img ? (
+              <Image
+                src={img}
+                alt={i.media?.alt ?? ''}
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                className="object-cover"
+              />
+            ) : null}
+            {/* the design veils every photo so the overlaid label stays legible */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,42,52,.55),rgba(10,26,36,.92))]"
+            />
             <div className="absolute inset-x-5 bottom-[18px]">
               <div className="font-display text-[19px] font-bold">{i.title}</div>
               <div className="mt-1 text-[13px] text-muted">{i.cardDescription}</div>
@@ -84,14 +94,20 @@ export function IndustryCardGrid({ industries }: { industries: IndustryCard[] })
         const img = mediaUrl(i.media?.image?.url);
         return (
           <Link key={i.slug} href={`/industries/${i.slug}`} className={`${cardBase} overflow-hidden text-text`}>
-            <div
-              className="relative h-[190px]"
-              style={{
-                backgroundImage: `linear-gradient(160deg,rgba(15,42,52,.5),rgba(10,26,36,.8))${img ? `,url('${img}')` : ''}`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
+            <div className="relative h-[190px]">
+              {img ? (
+                <Image
+                  src={img}
+                  alt={i.media?.alt ?? ''}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  className="object-cover"
+                />
+              ) : null}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-[linear-gradient(160deg,rgba(15,42,52,.5),rgba(10,26,36,.8))]"
+              />
               {i.media?.label ? (
                 <div className="absolute bottom-3 left-4 font-mono text-[10.5px] font-medium uppercase tracking-[.14em] text-[rgba(232,242,244,.55)]">
                   {i.media.label}
@@ -119,14 +135,20 @@ export function ProjectMiniGrid({ projects }: { projects: Project[] }) {
         const m = p.metrics?.[0];
         return (
           <Link key={idx} href="/projects" className={`${cardBase} overflow-hidden text-text`}>
-            <div
-              className="relative h-[160px]"
-              style={{
-                backgroundImage: `linear-gradient(180deg,rgba(15,42,52,.45),rgba(10,26,36,.8))${img ? `,url('${img}')` : ''}`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
+            <div className="relative h-[160px]">
+              {img ? (
+                <Image
+                  src={img}
+                  alt={p.media?.alt ?? ''}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover"
+                />
+              ) : null}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,42,52,.45),rgba(10,26,36,.8))]"
+              />
               <SectorBadge sector={p.sector} />
             </div>
             <div className="p-5">
@@ -152,14 +174,20 @@ export function ProjectGrid({ projects }: { projects: Project[] }) {
         const img = mediaUrl(p.media?.image?.url);
         return (
           <article key={idx} className="overflow-hidden rounded-lg border border-line bg-fill-2">
-            <div
-              className="relative h-[170px]"
-              style={{
-                backgroundImage: `linear-gradient(180deg,rgba(15,42,52,.45),rgba(10,26,36,.8))${img ? `,url('${img}')` : ''}`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-              }}
-            >
+            <div className="relative h-[170px]">
+              {img ? (
+                <Image
+                  src={img}
+                  alt={p.media?.alt ?? ''}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover"
+                />
+              ) : null}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 bg-[linear-gradient(180deg,rgba(15,42,52,.45),rgba(10,26,36,.8))]"
+              />
               <SectorBadge sector={p.sector} />
               {p.media?.label ? (
                 <div className="absolute bottom-3 left-4 font-mono text-[10.5px] font-medium uppercase tracking-[.14em] text-[rgba(232,242,244,.55)]">
@@ -202,13 +230,18 @@ export function TeamGrid({ team }: { team: TeamMember[] }) {
         const img = mediaUrl(m.portrait?.url);
         return (
           <div key={i} className="overflow-hidden rounded-lg border border-line bg-fill-2">
-            <div
-              className="relative flex h-[220px] items-center justify-center bg-[linear-gradient(160deg,#0f2a34,#0a1a24)]"
-              style={img ? { backgroundImage: `url('${img}')`, backgroundSize: 'cover', backgroundPosition: 'center' } : undefined}
-            >
-              {!img ? (
+            <div className="relative flex h-[220px] items-center justify-center bg-[linear-gradient(160deg,#0f2a34,#0a1a24)]">
+              {img ? (
+                <Image
+                  src={img}
+                  alt={m.portrait?.alternativeText ?? ''}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover"
+                />
+              ) : (
                 <span className="font-mono text-[11px] uppercase tracking-[.14em] text-dim">[ portrait photo ]</span>
-              ) : null}
+              )}
             </div>
             <div className="p-5">
               <div className="font-display text-[17px] font-semibold">{m.name}</div>
