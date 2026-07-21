@@ -189,7 +189,7 @@ export function Header({ nav, services, industries }: Props) {
         <nav
           id={`${navId}-mobile`}
           aria-label="Mobile"
-          className="border-t border-line-soft bg-ink px-4 pb-5 pt-2 min-[901px]:hidden"
+          className="max-h-[72vh] overflow-y-auto overscroll-contain border-t border-line-soft bg-ink px-4 pb-5 pt-2 min-[901px]:hidden"
         >
           <MobileLink href="/" onNavigate={() => setMobileOpen(false)}>Home</MobileLink>
           <MobileLink href="/about" onNavigate={() => setMobileOpen(false)}>About</MobileLink>
