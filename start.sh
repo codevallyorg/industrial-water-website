@@ -22,6 +22,7 @@ set -euo pipefail
 # ---- defaults (env vars override; flags override env) -----------------------
 FRONTEND_PORT="${FRONTEND_PORT:-4000}"
 BACKEND_PORT="${BACKEND_PORT:-7000}"
+SEED=0   # --seed forces a reseed; otherwise we only seed an empty DB (see step 3b)
 
 usage() {
   cat <<EOF
@@ -29,6 +30,9 @@ Usage: ./start.sh [-f FRONTEND_PORT] [-b BACKEND_PORT]
 
   -f, --frontend-port   Next.js port   (default 4000, or \$FRONTEND_PORT)
   -b, --backend-port    Strapi port    (default 7000, or \$BACKEND_PORT)
+  -s, --seed            Reseed content from the design prototype. WARNING: upsert-by-slug —
+                        this OVERWRITES any content edited in the Strapi admin. Without it,
+                        an empty database is seeded automatically; a populated one is left alone.
   -h, --help            Show this help
 
 Postgres stays on :5433 (docker compose). Run ngrok yourself: ngrok http FRONTEND_PORT
@@ -39,6 +43,7 @@ while [[ $# -gt 0 ]]; do
   case "$1" in
     -f|--frontend-port) FRONTEND_PORT="$2"; shift 2 ;;
     -b|--backend-port)  BACKEND_PORT="$2";  shift 2 ;;
+    -s|--seed)          SEED=1; shift ;;
     -h|--help)          usage; exit 0 ;;
     *) echo "Unknown option: $1" >&2; usage; exit 1 ;;
   esac
@@ -111,6 +116,34 @@ say "Starting Strapi… (logs → backend/strapi-dev.log)"
 STRAPI_PID=$!
 # Strapi builds the admin on first run — give it up to 3 minutes.
 wait_for "$BACKEND_PORT" "Strapi" 180 || { echo "  last log lines:"; tail -n 20 "$STRAPI_LOG" >&2; exit 1; }
+
+# ---- 3b. Seed content -------------------------------------------------------
+# Seed is upsert-by-slug: re-running RESETS all content to the design defaults and CLOBBERS anything
+# edited in the Strapi admin. So we never seed a populated DB automatically. Rules:
+#   --seed         → always reseed (explicit "reset to design").
+#   empty DB       → seed once (first-run convenience).
+#   populated DB   → skip.
+#   unknown/error  → skip (never clobber on an ambiguous count).
+# Strapi has already created the `services` table by now, so a real empty DB reports 0 (not an error).
+DB_USER="${DATABASE_USERNAME:-forbes}"; DB_NAME="${DATABASE_NAME:-forbes_water}"
+if svc_count=$(docker exec forbes-water-db psql -U "$DB_USER" -d "$DB_NAME" -tAc \
+      "SELECT count(*) FROM services" 2>/dev/null); then
+  svc_count="$(echo "$svc_count" | tr -d '[:space:]')"
+else
+  svc_count=""   # query failed — treat as unknown, do NOT auto-seed
+fi
+
+if [[ "$SEED" == "1" ]]; then
+  say "Reseeding (--seed) — overwriting CMS content with design defaults…"
+  ( cd "$ROOT/backend" && npm run seed ) || say "$(c '1;31' '✗') seed failed (see output above) — continuing"
+elif [[ "$svc_count" == "0" ]]; then
+  say "Empty database — seeding initial content…"
+  ( cd "$ROOT/backend" && npm run seed ) || say "$(c '1;31' '✗') seed failed (see output above) — continuing"
+elif [[ -z "$svc_count" ]]; then
+  say "Skipping seed (couldn't read DB — leaving content untouched). Use --seed to force."
+else
+  say "Skipping seed (content already present). Use --seed to reset to design defaults."
+fi
 
 # ---- 4. Next.js (foreground — this terminal streams its logs) ---------------
 say "Starting Next.js on :$FRONTEND_PORT …"

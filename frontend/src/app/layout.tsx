@@ -49,7 +49,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       lang="en-AU"
       className={`${spaceGrotesk.variable} ${ibmPlexSans.variable} ${ibmPlexMono.variable} h-full antialiased`}
     >
-      <body className="flex min-h-full flex-col">
+      {/* Browser extensions (Grammarly etc.) inject data-* attrs on <body> before React hydrates,
+          causing a benign attribute mismatch. Suppress on this element only — it does NOT extend to
+          children, so real hydration bugs in the app tree still surface. */}
+      <body className="flex min-h-full flex-col" suppressHydrationWarning>
         {/* the prototype has no skip link — keyboard users need one */}
         <a
           href="#main"

@@ -21,6 +21,7 @@
     "media": { "type": "component", "repeatable": false, "component": "shared.media-frame" },
     "outcomes": { "type": "component", "repeatable": true, "component": "ui.icon-item", "description": "\"What you get\" - 4 items in the design." },
     "steps": { "type": "component", "repeatable": true, "component": "ui.numbered-item", "description": "\"How it works\" - 4 items in the design." },
+    "featurePanel": { "type": "component", "repeatable": false, "component": "ui.feature-panel", "description": "Optional \"Borehole programs\" style block (eyebrow + H2 + image + accent-bar list). Client addition; only groundwater-monitoring uses it." },
     "relatedIndustries": {
       "type": "relation",
       "relation": "oneToMany",

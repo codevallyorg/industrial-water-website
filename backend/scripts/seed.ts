@@ -12,6 +12,7 @@
 import { createStrapi, compileStrapi } from '@strapi/strapi';
 import { readFileSync, existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
+import sharp from 'sharp';
 
 type Item = Record<string, any>;
 const content = JSON.parse(readFileSync(resolve(__dirname, 'design-content.json'), 'utf8'));
@@ -134,6 +135,39 @@ async function main() {
     }
   }
 
+  /**
+   * Uploads a bundled SVG illustration as a PNG (next/image rejects raw SVG unless
+   * dangerouslyAllowSVG is on, which we don't want). Rasterised once, cached, then dropped into the
+   * Media Library like any other asset — so it shows in the admin and the client can replace it.
+   */
+  async function uploadSvgAsPng(svgPath: string, name: string): Promise<any | null> {
+    if (uploadCache.has(name)) return uploadCache.get(name);
+    try {
+      if (!existsSync(CACHE)) mkdirSync(CACHE, { recursive: true });
+      const file = resolve(CACHE, `${name}.png`);
+      if (!existsSync(file)) {
+        const png = await sharp(readFileSync(svgPath)).png().toBuffer();
+        writeFileSync(file, png);
+      }
+      const existing = await app.db.query('plugin::upload.file').findOne({ where: { name: `${name}.png` } });
+      if (existing) {
+        uploadCache.set(name, existing);
+        return existing;
+      }
+      const [uploaded] = await app.plugin('upload').service('upload').upload({
+        data: {},
+        files: { filepath: file, originalFilename: `${name}.png`, mimetype: 'image/png', size: readFileSync(file).length },
+      });
+      uploadCache.set(name, uploaded);
+      return uploaded;
+    } catch (err: any) {
+      mediaFailures++;
+      app.log.warn(`media: ${name} → ${err.message}`);
+      uploadCache.set(name, null);
+      return null;
+    }
+  }
+
   const mediaFrame = async (url: string, name: string, label: string, alt: string) => ({
     image: await uploadFromUrl(url, name),
     label,
@@ -209,6 +243,24 @@ async function main() {
       media: await mediaFrame(s.img, `service-${s.slug}`, s.imgLabel, s.imgLabel),
       outcomes: icon(s.outcomes),
       steps: num(s.steps),
+      // Optional client-added block; image is left empty so the built-in illustration shows until the
+      // client uploads their own field photo in Strapi. Omit the key entirely when absent — passing
+      // `featurePanel: undefined` makes Strapi's component updater throw ('id' in undefined).
+      ...(s.featurePanel
+        ? {
+            featurePanel: {
+              eyebrow: s.featurePanel.eyebrow,
+              heading: s.featurePanel.heading,
+              // The bundled illustration is uploaded to the Media Library so it shows in the admin and
+              // the client can swap it for a real photo. No caption label — matches the design.
+              media: {
+                image: await uploadSvgAsPng(resolve(__dirname, 'assets/borehole-monitoring.svg'), `service-${s.slug}-feature`),
+                alt: s.featurePanel.imgAlt,
+              },
+              points: s.featurePanel.points.map((text: string) => ({ text })),
+            },
+          }
+        : {}),
       relatedIndustries: s.inds.map((x: Item) => industryIds[x.href.split('/').pop()!]).filter(Boolean),
       seo: {
         metaTitle: `${s.t} | Forbes Water`,

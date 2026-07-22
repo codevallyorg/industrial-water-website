@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="900" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="fw-sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#8ea1a4"/>
+      <stop offset="1" stop-color="#4c6068"/>
+    </linearGradient>
+  </defs>
+
+  <!-- sky + ground -->
+  <rect width="800" height="600" fill="url(#fw-sky)"/>
+  <rect y="430" width="800" height="170" fill="#6b5a3e"/>
+  <g stroke="#7d6a49" stroke-width="3" opacity="0.7">
+    <line x1="40" y1="470" x2="150" y2="462"/>
+    <line x1="520" y1="486" x2="660" y2="476"/>
+    <line x1="300" y1="520" x2="430" y2="512"/>
+    <line x1="90" y1="545" x2="230" y2="536"/>
+  </g>
+
+  <!-- borehole casing with water/casing layers -->
+  <rect x="176" y="250" width="70" height="300" fill="#e8ecec"/>
+  <rect x="168" y="238" width="86" height="22" rx="4" fill="#1f7f8f"/>
+  <g stroke="#93b6be" stroke-width="3" opacity="0.9">
+    <line x1="182" y1="290" x2="240" y2="290"/>
+    <line x1="182" y1="320" x2="240" y2="320"/>
+    <line x1="182" y1="350" x2="240" y2="350"/>
+    <line x1="182" y1="392" x2="240" y2="392"/>
+    <line x1="182" y1="430" x2="240" y2="430"/>
+    <line x1="182" y1="470" x2="240" y2="470"/>
+    <line x1="182" y1="510" x2="240" y2="510"/>
+  </g>
+
+  <!-- orange sight line from technician to bore -->
+  <line x1="470" y1="360" x2="250" y2="336" stroke="#e0952f" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- technician -->
+  <g fill="#1a2730">
+    <circle cx="500" cy="250" r="38"/>
+    <rect x="470" y="298" width="60" height="150" rx="16"/>
+    <rect x="440" y="300" width="120" height="26" rx="10" fill="#157c8c"/>
+    <rect x="452" y="440" width="26" height="120" rx="12" transform="rotate(10 465 500)"/>
+    <rect x="522" y="440" width="26" height="120" rx="12" transform="rotate(-10 535 500)"/>
+  </g>
+</svg>

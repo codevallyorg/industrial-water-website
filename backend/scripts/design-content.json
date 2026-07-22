@@ -274,6 +274,19 @@
       "tagline": "Reliable data on bore performance and aquifer health — collected, interpreted and reported by specialists.",
       "overview": "Groundwater problems announce themselves slowly, then all at once: falling yields, rising salinity, a licence review you weren't ready for. We run structured monitoring programs — levels, quality, abstraction — assess bore condition and efficiency, and prepare the technical reporting your licences require. When bores underperform, we diagnose whether the answer is rehabilitation, redevelopment or replacement before you spend.",
       "imgLabel": "Bore field monitoring",
+      "featurePanel": {
+        "eyebrow": "Groundwater monitoring",
+        "heading": "Borehole programs with defensible field data.",
+        "imgLabel": "Bore field sampling",
+        "imgAlt": "A field technician surveying a groundwater monitoring bore",
+        "points": [
+          "Standing water levels and bore condition checks",
+          "Low-flow or standard purging methods",
+          "pH, EC, ORP, DO, temperature and turbidity",
+          "Sample preservation, transport and lab liaison",
+          "Trend dashboards and exceedance commentary"
+        ]
+      },
       "outcomes": [
         {
           "t": "Defensible data",

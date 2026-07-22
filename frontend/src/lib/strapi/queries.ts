@@ -81,6 +81,7 @@ export async function getServiceBySlug(slug: string): Promise<Service | null> {
         media: MEDIA_FRAME,
         outcomes: true,
         steps: true,
+        featurePanel: { populate: { media: MEDIA_FRAME, points: true } },
         relatedIndustries: { fields: ['slug', 'title'] },
         seo: SEO,
       },

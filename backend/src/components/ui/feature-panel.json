@@ -1,0 +1,11 @@
+{
+  "collectionName": "components_ui_feature_panels",
+  "info": { "displayName": "Feature Panel", "icon": "bulletList", "description": "Eyebrow + H2 + image + a vertical list of accent-bar points. Client addition: the groundwater service's \"Borehole programs with defensible field data\" block. Optional; only groundwater-monitoring uses it." },
+  "options": {},
+  "attributes": {
+    "eyebrow": { "type": "string", "description": "Small uppercase teal kicker, e.g. GROUNDWATER MONITORING." },
+    "heading": { "type": "string", "required": true },
+    "media": { "type": "component", "repeatable": false, "component": "shared.media-frame", "description": "Optional. When empty the section shows a built-in borehole illustration; upload here to replace it." },
+    "points": { "type": "component", "repeatable": true, "component": "ui.list-line", "description": "The accent-bar list items." }
+  }
+}

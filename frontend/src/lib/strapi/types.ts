@@ -72,6 +72,23 @@ export type SectionHeading = {
   linkHref: string | null;
 };
 
+/** A single line in a feature-panel accent-bar list. */
+export type ListLine = {
+  text: string;
+};
+
+/**
+ * Client-added "Borehole programs with defensible field data" block: eyebrow + H2 + image
+ * (falls back to a built-in illustration when unset) + a vertical accent-bar list. Only the
+ * groundwater-monitoring service uses it.
+ */
+export type FeaturePanel = {
+  eyebrow: string | null;
+  heading: string;
+  media: MediaFrame | null;
+  points: ListLine[];
+};
+
 export type Testimonial = {
   quote: string;
   attribution: string;
@@ -103,6 +120,8 @@ export type Service = ServiceCard & {
   media: MediaFrame | null;
   outcomes: IconItem[];
   steps: NumberedItem[];
+  /** Optional client-added block; present on groundwater-monitoring only. */
+  featurePanel: FeaturePanel | null;
   /** One-way relation, curated order. NOT the inverse of Industry.relatedServices. */
   relatedIndustries: IndustryRef[];
   seo: Seo | null;

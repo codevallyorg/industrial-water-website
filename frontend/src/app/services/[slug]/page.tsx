@@ -5,6 +5,7 @@ import { CtaBand } from '@/components/layout/CtaBand';
 import { DetailHero } from '@/components/sections/Heroes';
 import { IconCardGrid } from '@/components/sections/IconCardGrid';
 import { NumberedGrid } from '@/components/sections/NumberedGrid';
+import { FeaturePanel } from '@/components/sections/FeaturePanel';
 import { MediaFrame } from '@/components/ui/MediaFrame';
 import { Button } from '@/components/ui/Button';
 import { JsonLd, breadcrumbSchema, serviceSchema } from '@/components/seo/JsonLd';
@@ -55,6 +56,9 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         </div>
         <MediaFrame data={service.media} sizes="(max-width: 1024px) 100vw, 50vw" ratio="aspect-[4/3]" />
       </section>
+
+      {/* Client-added "Borehole programs" block — groundwater-monitoring only, driven by Strapi */}
+      {service.featurePanel ? <FeaturePanel data={service.featurePanel} /> : null}
 
       {/* Service detail / Outcomes — icon = check */}
       <section className="container-site py-16">
