@@ -1,155 +1,149 @@
-# Forbes Water — Website Content Review
+# Forbes Water — Website Content Handover & Review
 
 **Prepared for:** Forbes Water
-**Purpose:** Review the website and identify the placeholder content that needs to be replaced with your real information before launch.
-**Status:** Draft website for review — running locally, not yet live.
+**Status:** Draft site is built, matches the approved design, and is running for your review. It goes
+live once you've provided your real content.
 
 ---
 
-## 1. Website Overview
+## In one minute
 
-The Forbes Water website has been built as a modern, fast marketing site covering all **20 pages** — Home, About, Services (with 8 individual service pages), Industries (with 5 individual industry pages), Sustainability, Projects, and Contact.
+The full website — **all 20 pages** (Home, About, Services + 8 service pages, Industries + 5 industry
+pages, Sustainability, Projects, Contact) — is **built and working**. It runs on a content system
+(**Strapi CMS**), so text, images, numbers, team, projects and more can be edited without a developer.
 
-- The **front-end** (what visitors see) has been fully developed and matches the approved design.
-- All **text and images** are managed through **Strapi CMS**, a content management system. This means you can update wording, swap photos, and add content yourself later — without needing a developer to change the code.
+Right now the site is filled with **placeholder / sample content** so the design could be reviewed.
+We need **two things** from you:
 
-The website is complete and working. What it currently contains is **placeholder content** — realistic sample text, stock photos, and example figures used so the design could be reviewed. This report lists that placeholder content page by page so you can see exactly what needs to be replaced with your real details.
+1. ⭐ **Your real content** to replace the placeholders — *this is the main ask* (Section 3).
+2. 👀 **A quick read-through** of the small amount of **fixed wording** that isn't editable, in case
+   you'd like any of it changed before we lock it in (Section 4).
 
----
-
-## 2. How to Use This Report
-
-Go through it **page by page**. For each page, we list what is placeholder and what we need from you. Use the checklist in Section 6 to track what you provide.
-
-Three things appear on nearly every page and are worth noting once:
-
-| Item | Currently showing | What we need |
-|---|---|---|
-| **Phone** | `1300 000 000` *(placeholder)* | Your real phone number |
-| **Email** | `enquiries@forbeswater.com.au` *(placeholder)* | Your real enquiries email |
-| **ABN** | `ABN 00 000 000 000` *(placeholder)* | Your real ABN |
-| **Photos** | Stock photography throughout | Your real site/team photography (optional but recommended) |
-| **Statistics** | e.g. 18+ years, 340+ sites, 32%, 1.2GL | Confirm or correct each figure |
-
-> **Note on address:** The current design shows coverage as *"Servicing all Australian states & territories"* but does **not** include a physical street address. If you'd like a business address shown, please let us know and we'll add it.
+Once we have your content, we load it in and deploy to a live server — after which **you'll be able to
+log in and manage the content yourself.**
 
 ---
 
-## 3. Placeholder Content — Page by Page
+## 1. What we've set up (done ✅)
 
-### Home — `/`
-| Section | Placeholder content | Action needed |
-|---|---|---|
-| Hero image | Stock photo (field operations) | Replace with real photo (optional) |
-| Hero statistics | **18+** years · **340+** sites · **100%** independent | Confirm figures |
-| Testimonial | Sample quote from *"Operations Manager · Regional mining operation"* — marked *representative client feedback* | Provide a real client quote & attribution |
-| Testimonial stats | **32%** cost reduction · **1.2GL** recycled · **Zero** breaches · **24h** response | Confirm figures |
-| Projects preview | Shows 3 sample projects (see Projects page) | See Projects |
-
-### About — `/about`
-| Section | Placeholder content | Action needed |
-|---|---|---|
-| Story text | Sample company story ("Built in the field, not the boardroom") | Confirm or provide your real story |
-| Story image | Stock photo (team on site) | Replace with real team photo (optional) |
-| **Team members** | 3 placeholder people — **[Principal Name]**, **[Engineer Name]**, **[Scientist Name]** — each with a placeholder job title and a sample bio | Provide **real names, titles, bios, and photos** |
-| "18+ years" reference | In intro text | Confirm figure |
-
-### Services — `/services`
-| Section | Placeholder content | Action needed |
-|---|---|---|
-| 8 service pages | Titles and descriptions are drafted from the approved content | Review wording for each |
-| Service images | Each of the 8 services uses a stock photo | Replace with real photos (optional) |
-
-The 8 services are: Industrial Water Treatment · Drinking Water Quality · Wastewater Solutions · Water Recycling & Reuse · Groundwater & Bore Monitoring · Water Testing & Compliance · Process Optimisation · Sustainable Water Management.
-
-> Each service page has its own hero, overview, outcomes, and process steps — all editable text, all currently drafted sample copy for you to review.
-
-### Industries — `/industries`
-| Section | Placeholder content | Action needed |
-|---|---|---|
-| 5 industry pages | Mining · Agriculture · Commercial & Industrial · Government & Municipal · Hospitality & Facilities | Review wording for each |
-| Industry images | Each of the 5 industries uses a stock photo | Replace with real photos (optional) |
-| Industry statistics | Each industry page shows a sample stat | Confirm figures |
-
-### Sustainability — `/sustainability`
-| Section | Placeholder content | Action needed |
-|---|---|---|
-| Impact figures | Sample metrics, explicitly marked *"representative examples for design review — final metrics to be confirmed"* | Provide real figures |
-| Body text | Drafted sample copy | Review wording |
-
-### Projects — `/projects`
-All **6 case studies are sample examples**, marked *"representative examples … to be replaced with approved client projects."* Each uses a stock photo and invented result figures:
-
-| Case study | Sector | Sample results |
-|---|---|---|
-| Process water recycling scheme, WA goldfields | Mining | 1.2GL/yr displaced · 2.1yr payback |
-| Regional drinking water scheme upgrade | Government | 100% compliance · 4 communities |
-| Trade waste reduction, food manufacturer | Industrial | −58% BOD load · $310k/yr saved |
-| Legionella management program, hotel group | Hospitality | 9 properties · zero detections |
-| Bore field rehabilitation, irrigated cropping | Agriculture | +64% yield · 3wk ahead of season |
-| Cooling system optimisation, manufacturing campus | Industrial | −27% water use · −35% chemical spend |
-
-**Action needed:** Provide your real projects — titles, descriptions, result figures, and photos. Or tell us which sample projects to keep/remove.
-
-### Contact — `/contact`
-| Section | Placeholder content | Action needed |
-|---|---|---|
-| Phone / Email / ABN | Placeholders (see Section 2) | Provide real details |
-| Enquiry form | Fully working; submissions are saved | Confirm which email should receive enquiry notifications |
-| Industry dropdown | Mining · Agriculture · Commercial & Industrial · Government & Municipal · Hospitality & Facilities · Other | Confirm this list |
-
-### Footer (all pages)
-| Item | Placeholder content | Action needed |
-|---|---|---|
-| Phone, email, ABN | Placeholders | Provide real details |
-| Copyright | © 2026 Forbes Water Pty Ltd | Confirm legal entity name |
+| Built | Detail |
+|---|---|
+| The whole site | All 20 pages, matching the approved design, fully responsive |
+| Content system | Strapi CMS connected — every page's content is editable |
+| Sample content loaded | Realistic draft copy, stock photos and example figures on every page |
+| Contact form | Working — submissions are captured and saved |
+| SEO basics | Page titles, descriptions, sitemap, social-share setup on every page |
 
 ---
 
-## 4. Managed Through Strapi CMS
+## 2. What **you** can change yourself (editable in the CMS ✏️)
 
-**Strapi CMS is already integrated.** Every page listed above is content-managed, which means you (or your team) will be able to:
+Once you're logged in, you'll be able to add, edit, remove and reorder all of the following — each
+field has a plain-English hint explaining what it is and where it appears:
 
-- ✅ Update any text
-- ✅ Replace existing images with your own
-- ✅ Upload new images
-- ✅ Add, edit, or remove items such as team members, projects, services, and industries
-
-**Content areas managed through Strapi:**
-
-- Home, About, Services, Industries, Sustainability, Projects, and Contact pages
-- All 8 individual service pages
-- All 5 individual industry pages
-- Team members, project case studies, contact details, navigation menu, and footer
-
-**Fixed by design (not editable):** the overall layout, colours, brand styling, icons, and page structure are part of the approved design and stay consistent across the site. Content changes; the design stays intact.
-
----
-
-## 5. Current Review Environment
-
-- The website is **running locally and is not yet deployed to a live server.**
-- To let you review it, we will expose the local site (running on port 3000) using **ngrok**, which creates a **temporary public link** you can open in any browser. This link is for review only and will change/expire.
-- **Strapi (the admin panel) is not publicly accessible yet**, because the project has not been deployed. Once the site is hosted on a live server, you will also be able to log in to Strapi — with the appropriate credentials and permissions — to manage content yourself.
+| Area | You can edit |
+|---|---|
+| **Text** | Every headline, intro, paragraph, tagline and description on every page |
+| **Images** | Replace or upload any photo (home, about, services, industries, projects, team) |
+| **Numbers / stats** | Every statistic (value and label) |
+| **Services** | All 8 — title, copy, "what you get", "how it works" steps, images |
+| **Industries** | All 5 — title, copy, challenges, stat, image |
+| **Projects** | Add / edit / remove case studies — title, results, image |
+| **Team** | Add / edit / remove people — name, role, bio, photo |
+| **Testimonial** | The client quote and who it's from |
+| **Contact details** | Phone, email, ABN, coverage line |
+| **Menus & footer** | Navigation labels, footer links, social links |
+| **SEO** | Each page's Google title & description, social-share image |
 
 ---
 
-## 6. Summary — Action Items for the Client
+## 3. ⭐ Placeholder content to replace — **we need this from you**
 
-Please provide the following so we can replace the placeholder content before launch:
+This is the priority. Everything below is sample/placeholder and clearly marked as such on the site.
 
-- [ ] **Contact details** — real phone number, enquiries email, ABN
-- [ ] **Business address** — if you want one displayed (none shown currently)
-- [ ] **Team** — real names, job titles, bios, and photos (3 people)
-- [ ] **Projects** — real case studies with results and photos (or confirm which samples to keep)
-- [ ] **Statistics** — confirm or correct all figures (18+, 340+, 32%, 1.2GL, 24h, etc.)
-- [ ] **Testimonial** — a real client quote and attribution
-- [ ] **Photography** — real photos for the home, about, service, industry, and project sections (optional; stock images used meanwhile)
-- [ ] **Copy review** — read through each page's wording and note any changes
-- [ ] **Enquiry notifications** — confirm which email address should receive contact-form submissions
+### Contact details *(appear across the whole site)*
+| Now showing | We need |
+|---|---|
+| Phone `1300 000 000` *(placeholder)* | Your real phone number |
+| Email `enquiries@forbeswater.com.au` *(placeholder)* | Your real enquiries email |
+| `ABN 00 000 000 000` *(placeholder)* | Your real ABN |
+| Coverage: *"Servicing all Australian states & territories"* | Confirm — and tell us if you want a **street address** shown (none is at the moment) |
+| Copyright: *© 2026 Forbes Water Pty Ltd* | Confirm the correct legal entity name |
+| — | Which email should **receive contact-form enquiries**? |
 
-Once we have these, we'll load your real content into the CMS and prepare the site for deployment to a live server.
+### Team *(About page — 3 people)*
+Currently **[Principal Name]**, **[Engineer Name]**, **[Scientist Name]** with sample titles and bios.
+→ Provide **real names, job titles, short bios, and photos** for each.
+
+### Projects *(6 sample case studies)*
+All six are invented examples with stock photos and made-up results (mining, government, food
+manufacturing, hospitality, agriculture, manufacturing).
+→ Provide your **real projects** — title, short description, 2 result figures each, and photos.
+*(Or tell us which samples to keep or drop.)*
+
+### Statistics *(shown across Home, Industries, Sustainability, Projects)*
+All figures are **sample/representative** — e.g. `18+` years, `340+` sites, `100%` independent,
+`32%` cost reduction, `1.2GL` recycled, `24h` response, plus each industry and sustainability figure.
+→ **Confirm or correct every number.**
+
+### Testimonial *(Home page)*
+A sample quote attributed to *"Operations Manager · Regional mining operation."*
+→ Provide a **real client quote and attribution** (or tell us to remove it for now).
+
+### Photography *(optional but recommended)*
+Stock photos are used throughout (hero, about, each service, each industry, each project).
+→ Send real site/team/project photography where you'd like it. *(Optional — stock works until then.)*
+
+### Copy review
+The wording on every page is **drafted from the approved content** and is a sample for you to check.
+→ Read through each page and note any changes to wording.
 
 ---
 
-*This document reviews the current draft of the Forbes Water website. All placeholder content is intentional and clearly marked, pending your final content.*
+## 4. Fixed by design (please review once 🔒)
+
+These are **not editable in the CMS** — they're part of the approved design and stay consistent
+across the site. They're correct as-is; we only need you to **read them once** and tell us if you
+want any changed (that's a quick developer change, not a content edit):
+
+| Fixed item | Where |
+|---|---|
+| Section labels: **"Overview", "What you get", "How it works", "Common in these industries"** | Every service page |
+| Section labels: **"Challenges we solve", "How we help"** | Every industry page |
+| Button labels: **"Discuss this service", "See related projects"** | Service pages |
+| Step numbering style (**01 / 02 / 03**) and card icons | Throughout |
+| Layout, colours, fonts, spacing, animations, page order, and the set of 20 pages | Whole site |
+
+> In short: **content changes freely; the design and these structural labels stay fixed.** If you want
+> any fixed label reworded, just flag it in your review.
+
+---
+
+## 5. Going live
+
+- **Now (review):** the draft site is shared with you via a temporary preview link (it may change or
+  expire). This is for viewing only.
+- **The CMS (Strapi):** not publicly available yet. **Once we deploy to a live server**, you'll get a
+  secure login to Strapi with the right permissions to **read and edit all the content above yourself.**
+- **Next step after your content:** we load your real details in, then deploy to the live server.
+
+---
+
+## 6. Your checklist
+
+- [ ] **Contact** — real phone, enquiries email, ABN, and the email that should receive form enquiries
+- [ ] **Address** — confirm whether to show a street address (none shown now)
+- [ ] **Legal name** — confirm the entity name for the copyright line
+- [ ] **Team** — real names, titles, bios, photos (3 people)
+- [ ] **Projects** — real case studies with results and photos (or which samples to keep)
+- [ ] **Statistics** — confirm or correct every figure
+- [ ] **Testimonial** — a real quote and attribution (or remove)
+- [ ] **Photography** — real photos where wanted (optional)
+- [ ] **Copy** — read each page, note wording changes
+- [ ] **Fixed labels (Section 4)** — read once, flag anything you want changed
+
+Once we have these, we'll load your real content into the CMS and prepare the site to go live.
+
+---
+
+*Every placeholder above is intentional and clearly marked on the site, pending your final content.*
