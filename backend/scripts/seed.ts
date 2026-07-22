@@ -76,6 +76,21 @@ async function main() {
 
   const doc = (uid: string) => app.documents(uid as any);
 
+  // Safety: seeding overwrites content by design (upsert). Once the site has content, a re-run would
+  // clobber whatever the client edited in the admin. So we refuse to touch a populated database unless
+  // explicitly forced. An empty database seeds normally.
+  //   npm run seed              → fill an empty DB; skip (do nothing) if content already exists
+  //   npm run seed -- --force   → reset ALL content to the design defaults (destructive)
+  const FORCE = process.argv.includes('--force');
+  if (!FORCE && (await doc('api::service.service').count({})) > 0) {
+    console.log(
+      'Content already present — skipping seed so admin edits are not overwritten.\n' +
+        'To reset everything to the design defaults, run:  npm run seed -- --force'
+    );
+    await app.destroy();
+    process.exit(0);
+  }
+
   // -------------------------------------------------------------------------------------------
   // Media — the prototype points at Unsplash placeholders. We pull them into Strapi's Media
   // Library so the client can swap them for real photography without touching code.

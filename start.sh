@@ -135,7 +135,7 @@ fi
 
 if [[ "$SEED" == "1" ]]; then
   say "Reseeding (--seed) — overwriting CMS content with design defaults…"
-  ( cd "$ROOT/backend" && npm run seed ) || say "$(c '1;31' '✗') seed failed (see output above) — continuing"
+  ( cd "$ROOT/backend" && npm run seed -- --force ) || say "$(c '1;31' '✗') seed failed (see output above) — continuing"
 elif [[ "$svc_count" == "0" ]]; then
   say "Empty database — seeding initial content…"
   ( cd "$ROOT/backend" && npm run seed ) || say "$(c '1;31' '✗') seed failed (see output above) — continuing"
