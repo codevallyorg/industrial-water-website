@@ -10,24 +10,24 @@
   "options": { "draftAndPublish": true },
   "pluginOptions": {},
   "attributes": {
-    "title": { "type": "string", "required": true },
-    "slug": { "type": "uid", "targetField": "title", "required": true },
-    "order": { "type": "integer", "default": 0, "description": "Controls display order in grids, nav and footer." },
-    "short": { "type": "text", "required": true, "description": "One-liner on the Home expertise card." },
-    "blurb": { "type": "text", "required": true, "description": "Longer card copy on the Services grid." },
-    "h1": { "type": "string", "required": true },
-    "tagline": { "type": "text", "required": true, "description": "Hero paragraph under the H1." },
-    "overview": { "type": "text", "required": true, "description": "The Overview section body." },
-    "media": { "type": "component", "repeatable": false, "component": "shared.media-frame" },
-    "outcomes": { "type": "component", "repeatable": true, "component": "ui.icon-item", "description": "\"What you get\" - 4 items in the design." },
-    "steps": { "type": "component", "repeatable": true, "component": "ui.numbered-item", "description": "\"How it works\" - 4 items in the design." },
-    "featurePanel": { "type": "component", "repeatable": false, "component": "ui.feature-panel", "description": "Optional \"Borehole programs\" style block (eyebrow + H2 + image + accent-bar list). Client addition; only groundwater-monitoring uses it." },
+    "title": { "type": "string", "required": true, "description": "The service name. Shown on cards, the top nav, breadcrumbs and the browser tab." },
+    "slug": { "type": "uid", "targetField": "title", "required": true, "description": "The web address for this service: /services/<slug>. Auto-filled from the title. Changing it changes the page's URL (and any existing links to it)." },
+    "order": { "type": "integer", "default": 0, "description": "Position in lists. Lower numbers show first, in grids, the nav menu and the footer." },
+    "short": { "type": "text", "required": true, "description": "One-line summary. Shown on the small service card on the Home page." },
+    "blurb": { "type": "text", "required": true, "description": "A slightly longer summary. Shown on the service card on the Services listing page." },
+    "h1": { "type": "string", "required": true, "description": "The big headline at the very top of the service page." },
+    "tagline": { "type": "text", "required": true, "description": "The intro sentence directly beneath the headline, at the top of the page." },
+    "overview": { "type": "text", "required": true, "description": "The body text of the \"Overview\" section (the first block below the header)." },
+    "media": { "type": "component", "repeatable": false, "component": "shared.media-frame", "description": "The main image beside the \"Overview\" text." },
+    "outcomes": { "type": "component", "repeatable": true, "component": "ui.icon-item", "description": "The cards in the \"What you get\" section. Each is a short title + one line. 4 in the design; add or remove as needed." },
+    "steps": { "type": "component", "repeatable": true, "component": "ui.numbered-item", "description": "The numbered stages in the \"How it works\" section. 4 in the design; add or remove as needed." },
+    "featurePanel": { "type": "component", "repeatable": false, "component": "ui.feature-panel", "description": "Optional extra section: a headline + image + a list of points (e.g. the groundwater page's \"Borehole programs\" block). Leave empty on services that don't need it." },
     "relatedIndustries": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::industry.industry",
-      "description": "ONE-WAY on purpose. Not the inverse of industry.relatedServices - the design's cross-links are asymmetric. Order is curated."
+      "description": "Industries listed under \"Common in these industries\" at the bottom of the page. Drag to set the order. (These links are curated per service and don't have to match the industry's own service list.)"
     },
-    "seo": { "type": "component", "repeatable": false, "component": "shared.seo" }
+    "seo": { "type": "component", "repeatable": false, "component": "shared.seo", "description": "Search-engine title & description for this page. Leave blank to use the site defaults (Global → Default SEO)." }
   }
 }

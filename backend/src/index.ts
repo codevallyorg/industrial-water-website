@@ -1,4 +1,5 @@
-// import type { Core } from '@strapi/strapi';
+import type { Core } from '@strapi/strapi';
+import { applyFieldDescriptions } from './field-descriptions';
 
 export default {
   /**
@@ -16,5 +17,14 @@ export default {
    * This gives you an opportunity to set up your data model,
    * run jobs, or perform some special logic.
    */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
+  async bootstrap({ strapi }: { strapi: Core.Strapi }) {
+    // Keep Content Manager field hints in sync with src/field-descriptions.ts on every start, so
+    // editors always see them — even on a fresh database. Never let a hiccup here block boot.
+    try {
+      const n = await applyFieldDescriptions(strapi);
+      if (n > 0) strapi.log.info(`field descriptions: applied ${n} update(s)`);
+    } catch (err) {
+      strapi.log.warn(`field descriptions: skipped (${(err as Error).message})`);
+    }
+  },
 };
